@@ -1,29 +1,11 @@
-'use client';
+import { auth, signOut } from '@/auth';
+import { redirect } from 'next/navigation';
 
-import { useSession, signOut } from 'next-auth/react';
-import { useRouter } from 'next/navigation';
-import { useEffect } from 'react';
-
-export default function Dashboard() {
-  const { data: session, status } = useSession();
-  const router = useRouter();
-
-  useEffect(() => {
-    if (status === 'unauthenticated') {
-      router.push('/auth/signin');
-    }
-  }, [status, router]);
-
-  if (status === 'loading') {
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="text-lg">Loading...</div>
-      </div>
-    );
-  }
+export default async function Dashboard() {
+  const session = await auth();
 
   if (!session) {
-    return null;
+    redirect('/auth/signin');
   }
 
   return (
@@ -35,15 +17,27 @@ export default function Dashboard() {
               <h1 className="text-2xl font-bold text-gray-900">LockIn</h1>
             </div>
             <div className="flex items-center space-x-4">
+              <img
+                src={session.user.image}
+                alt={session.user.name}
+                className="w-8 h-8 rounded-full"
+              />
               <span className="text-gray-700">
                 {session.user.name} ({session.user.role})
               </span>
-              <button
-                onClick={() => signOut({ callbackUrl: '/auth/signin' })}
-                className="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700"
+              <form
+                action={async () => {
+                  'use server';
+                  await signOut({ redirectTo: '/' });
+                }}
               >
-                Sign Out
-              </button>
+                <button
+                  type="submit"
+                  className="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700"
+                >
+                  Sign Out
+                </button>
+              </form>
             </div>
           </div>
         </div>
@@ -69,11 +63,10 @@ export default function Dashboard() {
 
             <div className="mt-6 p-4 bg-green-50 rounded">
               <h3 className="font-semibold text-green-900">
-                ✅ Day 1 Complete!
+                ✅ Google Auth Working!
               </h3>
               <p className="text-green-700 mt-2">
-                Your authentication system is working. Tomorrow we&apos;ll build
-                the admin panel for managing staff and services.
+                Much cleaner! Now let&apos;s build the admin panel.
               </p>
             </div>
           </div>
