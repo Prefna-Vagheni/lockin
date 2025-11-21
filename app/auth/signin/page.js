@@ -1,6 +1,6 @@
 'use client';
 
-import { signIn } from 'next-auth/react';
+import { signIn } from '@/auth';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 
@@ -11,28 +11,28 @@ export default function SignIn() {
   const [loading, setLoading] = useState(false);
   const router = useRouter();
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setLoading(true);
-    setError('');
+  // const handleSubmit = async (e) => {
+  //   e.preventDefault();
+  //   setLoading(true);
+  //   setError('');
 
-    const result = await signIn('credentials', {
-      redirect: false,
-      email,
-      password,
-    });
+  //   const result = await signIn('credentials', {
+  //     redirect: false,
+  //     email,
+  //     password,
+  //   });
 
-    if (result?.error) {
-      setError('Invalid credentials');
-      setLoading(false);
-    } else {
-      router.push('/dashboard');
-    }
-  };
+  //   if (result?.error) {
+  //     setError('Invalid credentials');
+  //     setLoading(false);
+  //   } else {
+  //     router.push('/dashboard');
+  //   }
+  // };
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50">
-      <div className="max-w-md w-full space-y-8 p-8 bg-white rounded-lg shadow">
+      {/* <div className="max-w-md w-full space-y-8 p-8 bg-white rounded-lg shadow">
         <div>
           <h2 className="text-center text-3xl font-bold text-gray-900">
             Sign in to LockIn
@@ -87,7 +87,8 @@ export default function SignIn() {
             {loading ? 'Signing in...' : 'Sign in'}
           </button>
         </form>
-      </div>
+      </div> */}
+      <button onClick={() => signIn('google')}>signin</button>
     </div>
   );
 }
