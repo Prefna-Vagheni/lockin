@@ -1,73 +1,74 @@
-/*import { SupabaseAdapter } from '@auth/supabase-adapter';
 import NextAuth from 'next-auth';
 import Google from 'next-auth/providers/google';
+import { createClient } from '@supabase/supabase-js';
 
-export const {
-  handlers: { GET, POST },
-  auth,
-  signIn,
-  signOut,
-} = NextAuth({
+const supabaseAdmin = createClient(
+  process.env.NEXT_PUBLIC_SUPABASE_URL,
+  process.env.SUPABASE_SERVICE_ROLE_KEY
+);
+
+export const { handlers, auth, signIn, signOut } = NextAuth({
   providers: [
     Google({
       clientId: process.env.AUTH_GOOGLE_ID,
       clientSecret: process.env.AUTH_GOOGLE_SECRET,
     }),
   ],
-  // adapter: SupabaseAdapter({
-  //   url: process.env.NEXT_PUBLIC_SUPABASE_URL,
-  //   secret: process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
-  // }),
   callbacks: {
-    async session({ session, user }) {
-      if (session?.user) {
-        // Get user role from our users table
-        // const { createClient } = await import('@supabase/supabase-js');
-        // const supabase = createClient(
-        //   process.env.NEXT_PUBLIC_SUPABASE_URL,
-        //   process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
-        // );
+    async signIn({ user, account, profile }) {
+      try {
+        console.log('=== SIGN IN CALLBACK ===');
+        console.log('User:', user.email);
 
-        // const { data: userData } = await supabase
-        //   .from('users')
-        //   .select('role')
-        //   .eq('email', session.user.email)
-        //   .single();
+        const { data: existingUser } = await supabaseAdmin
+          .from('users')
+          .select('*')
+          .eq('email', user.email)
+          .maybeSingle();
 
-        // session.user.role = userData?.role || 'client';
-        session.user.role = 'client';
-        session.user.id = token.sub;
+        if (!existingUser) {
+          console.log('Creating new user...');
+
+          const { data: newUser, error: insertError } = await supabaseAdmin
+            .from('users')
+            .insert({
+              email: user.email,
+              name: user.name,
+              image: user.image,
+              role: 'client',
+            })
+            .select()
+            .single();
+
+          if (insertError) {
+            console.error('❌ Insert error:', insertError);
+            return false;
+          }
+
+          console.log('✅ User created:', newUser.email);
+        } else {
+          console.log('✅ User exists:', existingUser.email);
+        }
+
+        return true;
+      } catch (error) {
+        console.error('❌ Error:', error);
+        return false;
       }
-      return session;
     },
-  },
-  pages: {
-    signIn: '/auth/signin',
-  },
-});
-// export const { handlers, auth, signIn, signOut } = NextAuth({...})
-*/
-
-import NextAuth from 'next-auth';
-import Google from 'next-auth/providers/google';
-
-export const {
-  handlers: { GET, POST },
-  auth,
-  signIn,
-  signOut,
-} = NextAuth({
-  providers: [
-    Google({
-      clientId: process.env.AUTH_GOOGLE_ID,
-      clientSecret: process.env.AUTH_GOOGLE_SECRET,
-    }),
-  ],
-  callbacks: {
-    async jwt({ token, user, account }) {
+    async jwt({ token, user }) {
       if (user) {
-        token.role = 'client';
-        token.id = user.id;
+        const { data: dbUser } = await supabaseAdmin
+          .from('users')
+          .select('id, role, image')
+          .eq('email', user.email)
+          .single();
+
+        if (dbUser) {
+          token.role = dbUser.role;
+          token.id = dbUser.id;
+          token.picture = dbUser.image;
+        }
       }
       return token;
     },
@@ -75,6 +76,7 @@ export const {
       if (session?.user) {
         session.user.role = token.role || 'client';
         session.user.id = token.id;
+        session.user.image = token.picture;
       }
       return session;
     },

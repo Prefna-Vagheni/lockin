@@ -3,6 +3,8 @@
 // import { supabase } from '@/lib/supabase';
 // import bcrypt from 'bcryptjs';
 
+import { handlers } from '@/auth';
+
 // const { handlers } = require(
 
 // export const authOptions = {
@@ -77,4 +79,5 @@
 // export { handler as GET, handler as POST };
 // export { handlers as GET, handlers as POST } from '@/auth';
 
-export { GET, POST } from '@/auth';
+// export { GET, POST } from '@/auth';
+export const { GET, POST } = handlers;
