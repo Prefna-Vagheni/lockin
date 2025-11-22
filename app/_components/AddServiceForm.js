@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { createService } from '@/app/actions/services';
+import { createService } from '@/actions/services';
 
 export default function AddServiceForm() {
   const router = useRouter();

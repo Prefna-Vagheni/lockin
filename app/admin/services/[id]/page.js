@@ -1,9 +1,9 @@
+import EditServiceForm from '@/_components/EditServiceForm';
 import { supabaseAdmin } from '@/lib/supabase';
 import { notFound } from 'next/navigation';
-import EditServiceForm from '@/components/EditServiceForm';
 
 export default async function EditServicePage({ params }) {
-  const { id } = params;
+  const { id } = await params;
 
   const { data: service, error } = await supabaseAdmin
     .from('services')
