@@ -1,9 +1,9 @@
+import EditStaffForm from '@/_components/EditStaffForm';
 import { supabaseAdmin } from '@/lib/supabase';
 import { notFound } from 'next/navigation';
-import EditStaffForm from '@/_components/EditStaffForm';
 
 export default async function EditStaffPage({ params }) {
-  const { id } = params;
+  const { id } = await params;
 
   // Fetch staff details
   const { data: staff, error } = await supabaseAdmin
