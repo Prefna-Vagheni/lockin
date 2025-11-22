@@ -1,5 +1,6 @@
 import { auth, signOut } from '@/auth';
 import { redirect } from 'next/navigation';
+import Link from 'next/link';
 
 export default async function Dashboard() {
   const session = await auth();
@@ -22,9 +23,15 @@ export default async function Dashboard() {
                 alt={session.user.name}
                 className="w-8 h-8 rounded-full"
               />
-              <span className="text-gray-700">
-                {session.user.name} ({session.user.role})
-              </span>
+              <span className="text-gray-700">{session.user.name}</span>
+              {session.user.role === 'admin' && (
+                <Link
+                  href="/admin"
+                  className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
+                >
+                  Admin Panel
+                </Link>
+              )}
               <form
                 action={async () => {
                   'use server';
@@ -46,9 +53,7 @@ export default async function Dashboard() {
       <main className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
         <div className="px-4 py-6 sm:px-0">
           <div className="bg-white rounded-lg shadow p-6">
-            <h2 className="text-2xl font-bold mb-4">
-              Welcome to LockIn Dashboard
-            </h2>
+            <h2 className="text-2xl font-bold mb-4">Welcome back!</h2>
             <div className="space-y-2">
               <p>
                 <strong>Email:</strong> {session.user.email}
@@ -57,18 +62,38 @@ export default async function Dashboard() {
                 <strong>Name:</strong> {session.user.name}
               </p>
               <p>
-                <strong>Role:</strong> {session.user.role}
+                <strong>Role:</strong>{' '}
+                <span className="px-2 py-1 bg-blue-100 text-blue-800 rounded text-sm">
+                  {session.user.role}
+                </span>
               </p>
             </div>
 
-            <div className="mt-6 p-4 bg-green-50 rounded">
-              <h3 className="font-semibold text-green-900">
-                ✅ Google Auth Working!
-              </h3>
-              <p className="text-green-700 mt-2">
-                Much cleaner! Now let&apos;s build the admin panel.
-              </p>
-            </div>
+            {session.user.role === 'admin' ? (
+              <div className="mt-6 p-4 bg-blue-50 rounded">
+                <h3 className="font-semibold text-blue-900">🎉 Admin Access</h3>
+                <p className="text-blue-700 mt-2">
+                  You have admin privileges! Click the &quot;Admin Panel&quot;
+                  button above to manage staff, services, and bookings.
+                </p>
+              </div>
+            ) : (
+              <div className="mt-6 p-4 bg-green-50 rounded">
+                <h3 className="font-semibold text-green-900">
+                  ✅ Ready to Book!
+                </h3>
+                <p className="text-green-700 mt-2">
+                  Browse our talented hairdressers and book your next
+                  appointment.
+                </p>
+                <Link
+                  href="/booking"
+                  className="mt-4 inline-block px-6 py-2 bg-green-600 text-white rounded hover:bg-green-700"
+                >
+                  Book Appointment
+                </Link>
+              </div>
+            )}
           </div>
         </div>
       </main>
