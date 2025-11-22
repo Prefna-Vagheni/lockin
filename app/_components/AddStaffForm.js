@@ -2,32 +2,38 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { createStaffAction } from '@/admin/staff/new/actions';
+import { createStaff } from '@/actions/staff';
 
 export default function AddStaffForm() {
   const router = useRouter();
-  const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
 
-  async function handleFormAction(formData) {
+  const handleSubmit = async (e) => {
+    e.preventDefault();
     setLoading(true);
     setError('');
 
     try {
-      const result = await createStaffAction(formData);
+      const formData = new FormData(e.target);
+      const result = await createStaff(formData);
 
-      if (result?.success) {
+      if (result.success) {
         router.push('/admin/staff');
         router.refresh();
+      } else {
+        setError(result.error || 'Failed to create staff member');
+        setLoading(false);
       }
     } catch (err) {
-      setError(err.message || 'Failed to create staff member');
+      console.error('Error:', err);
+      setError('An unexpected error occurred');
       setLoading(false);
     }
-  }
+  };
 
   return (
-    <form action={handleFormAction} className="space-y-6">
+    <form onSubmit={handleSubmit} className="space-y-6">
       {error && (
         <div className="bg-red-50 text-red-600 p-4 rounded">{error}</div>
       )}
@@ -41,7 +47,8 @@ export default function AddStaffForm() {
           type="text"
           name="name"
           required
-          className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+          className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+          placeholder="Jane Doe"
         />
       </div>
 
@@ -54,7 +61,8 @@ export default function AddStaffForm() {
           type="email"
           name="email"
           required
-          className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+          className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+          placeholder="jane@example.com"
         />
       </div>
 
@@ -66,7 +74,8 @@ export default function AddStaffForm() {
         <textarea
           name="bio"
           rows={4}
-          className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+          className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+          placeholder="Tell us about this hairdresser..."
         />
       </div>
 
@@ -78,7 +87,8 @@ export default function AddStaffForm() {
         <input
           type="text"
           name="specialties"
-          className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+          className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+          placeholder="Haircuts, Coloring, Extensions"
         />
       </div>
 
@@ -92,7 +102,8 @@ export default function AddStaffForm() {
           name="hourlyRate"
           step="0.01"
           required
-          className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+          className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+          placeholder="50.00"
         />
       </div>
 
@@ -105,7 +116,7 @@ export default function AddStaffForm() {
           type="file"
           name="photo"
           accept="image/*"
-          className="w-full px-4 py-2 border border-gray-300 rounded-lg"
+          className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
         />
         <p className="text-sm text-gray-500 mt-1">JPG, PNG or GIF (max 5MB)</p>
       </div>
@@ -115,15 +126,14 @@ export default function AddStaffForm() {
         <button
           type="submit"
           disabled={loading}
-          className="flex-1 px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50"
+          className="flex-1 px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 font-medium disabled:opacity-50 disabled:cursor-not-allowed"
         >
           {loading ? 'Creating...' : 'Create Staff Member'}
         </button>
-
         <button
           type="button"
           onClick={() => router.back()}
-          className="px-6 py-3 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300"
+          className="px-6 py-3 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 font-medium"
         >
           Cancel
         </button>

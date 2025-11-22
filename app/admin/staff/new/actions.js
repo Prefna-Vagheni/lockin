@@ -1,73 +1,95 @@
 'use server';
 
-import { createServerClient } from '@supabase/auth-helpers-nextjs';
 import { cookies } from 'next/headers';
+import { createServerClient } from '@supabase/ssr';
+
+function supabaseServer() {
+  return createServerClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL,
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
+    { cookies }
+  );
+}
 
 export async function createStaffAction(formData) {
-  const supabase = createServerClient({ cookies });
+  const supabase = supabaseServer();
 
-  const email = formData.get('email');
-  const name = formData.get('name');
-  const bio = formData.get('bio');
-  const specialties = formData
-    .get('specialties')
-    ?.split(',')
-    .map((s) => s.trim())
-    .filter(Boolean);
-  const hourlyRate = parseFloat(formData.get('hourlyRate'));
-  const photo = formData.get('photo');
+  try {
+    const email = formData.get('email');
+    const name = formData.get('name');
+    const bio = formData.get('bio');
+    const specialties =
+      formData
+        .get('specialties')
+        ?.split(',')
+        .map((s) => s.trim())
+        .filter(Boolean) ?? [];
 
-  // 1. get or create user
-  const { data: existing } = await supabase
-    .from('booking.users')
-    .select('id')
-    .eq('email', email)
-    .single();
+    const hourlyRate = parseFloat(formData.get('hourlyRate'));
+    const photo = formData.get('photo');
 
-  let userId = existing?.id;
-
-  if (!userId) {
-    const { data: newUser, error } = await supabase
+    // 1️⃣ Check if user exists
+    const { data: existingUser } = await supabase
       .from('booking.users')
-      .insert({ email, name, role: 'staff' })
-      .select()
+      .select('id')
+      .eq('email', email)
       .single();
 
-    if (error) throw error;
-    userId = newUser.id;
+    let userId = existingUser?.id;
+
+    // 2️⃣ Create user if not existing
+    if (!userId) {
+      const { data: newUser, error: userError } = await supabase
+        .from('booking.users')
+        .insert({
+          email,
+          name,
+          role: 'staff',
+        })
+        .select()
+        .single();
+
+      if (userError) throw userError;
+      userId = newUser.id;
+    }
+
+    // 3️⃣ Upload photo (optional)
+    let photoUrl = null;
+
+    if (photo && photo.size > 0) {
+      const ext = photo.name.split('.').pop();
+      const fileName = `${userId}-${Date.now()}.${ext}`;
+
+      const { error: uploadError } = await supabase.storage
+        .from('staff-photos')
+        .upload(fileName, photo, {
+          contentType: photo.type,
+        });
+
+      if (uploadError) throw uploadError;
+
+      const {
+        data: { publicUrl },
+      } = supabase.storage.from('staff-photos').getPublicUrl(fileName);
+
+      photoUrl = publicUrl;
+    }
+
+    // 4️⃣ Create staff profile
+    const { error: staffErr } = await supabase.from('booking.staff').insert({
+      user_id: userId,
+      bio,
+      specialties,
+      hourly_rate: hourlyRate,
+      photo_url: photoUrl,
+      is_active: true,
+    });
+
+    if (staffErr) throw staffErr;
+
+    return { success: true };
+  } catch (err) {
+    console.error('Server Action Error:', err);
+    return { success: false, message: err.message };
   }
-
-  // 2. Photo upload
-  let photoUrl = null;
-
-  if (photo && typeof photo !== 'string') {
-    const ext = photo.name.split('.').pop();
-    const filename = `${userId}-${Date.now()}.${ext}`;
-
-    const { error: uploadError } = await supabase.storage
-      .from('staff-photos')
-      .upload(filename, photo);
-
-    if (uploadError) throw uploadError;
-
-    const { data } = supabase.storage
-      .from('staff-photos')
-      .getPublicUrl(filename);
-
-    photoUrl = data.publicUrl;
-  }
-
-  // 3. Create staff record
-  const { error: staffErr } = await supabase.from('booking.staff').insert({
-    user_id: userId,
-    bio,
-    specialties,
-    hourly_rate: hourlyRate,
-    photo_url: photoUrl,
-    is_active: true,
-  });
-
-  if (staffErr) throw staffErr;
-
-  return { success: true };
 }
