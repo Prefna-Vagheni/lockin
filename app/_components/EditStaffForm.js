@@ -172,7 +172,6 @@ export default function EditStaffForm({ staff }) {
           </label>
         </div>
 
-        {/* New Photo Upload */}
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-2">
             Upload New Photo (optional)
