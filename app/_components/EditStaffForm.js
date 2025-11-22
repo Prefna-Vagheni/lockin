@@ -156,7 +156,6 @@ export default function EditStaffForm({ staff }) {
           />
         </div>
 
-        {/* Active Status */}
         <div>
           <label className="flex items-center space-x-3">
             <input
