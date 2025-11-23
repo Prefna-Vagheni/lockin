@@ -254,7 +254,7 @@ export default function BookingForm({
           </button>
 
           <p className="text-sm text-gray-500 text-center mt-4">
-            You'll be redirected to secure payment. Payment is required to
+            You&apos;ll be redirected to secure payment. Payment is required to
             confirm your booking.
           </p>
         </div>
