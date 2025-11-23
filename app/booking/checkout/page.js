@@ -23,7 +23,7 @@ export default function CheckoutPage() {
 
   useEffect(() => {
     handleCheckout();
-  }, []); // I consider adding the missing dependancy here since  get
+  }, []); // I consider adding the missing dependancy here since  get duplicates here
 
   const handleCheckout = async () => {
     try {
