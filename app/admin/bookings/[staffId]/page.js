@@ -1,16 +1,16 @@
 import { auth } from '@/auth';
 import { supabaseAdmin } from '@/lib/supabase';
 import { notFound, redirect } from 'next/navigation';
-import BookingForm from '@/components/BookingForm';
+import BookingForm from '@/_components/BookingForm';
 
 export default async function StaffBookingPage({ params }) {
   const session = await auth();
 
   if (!session) {
-    redirect('/auth/signin?callbackUrl=/booking');
+    redirect('/auth/signin?callbackUrl=/bookings');
   }
 
-  const { staffId } = params;
+  const { staffId } = await params;
 
   // Fetch staff details
   const { data: staff, error: staffError } = await supabaseAdmin
