@@ -152,7 +152,7 @@ function StaffSelectionCard({ staff, services }) {
         )}
 
         <Link
-          href={`/admin/bookings/${staff.id}`}
+          href={`/booking/${staff.id}`}
           className="block text-center mt-6 px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 font-semibold transition"
         >
           Book with {staff.users?.name?.split(' ')[0]}

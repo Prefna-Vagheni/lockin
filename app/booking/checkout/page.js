@@ -2,16 +2,11 @@
 
 import { useEffect, useState } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
-import { loadStripe } from '@stripe/stripe-js';
-
-const stripePromise = loadStripe(
-  process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY
-);
 
 export default function CheckoutPage() {
   const searchParams = useSearchParams();
   const router = useRouter();
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
 
   const bookingData = {
@@ -27,14 +22,10 @@ export default function CheckoutPage() {
   };
 
   useEffect(() => {
-    // Automatically create checkout session when page loads
     handleCheckout();
   }, []);
 
   const handleCheckout = async () => {
-    setLoading(true);
-    setError('');
-
     try {
       // Create checkout session
       const response = await fetch('/api/create-checkout-session', {
@@ -51,14 +42,11 @@ export default function CheckoutPage() {
         throw new Error(data.error || 'Failed to create checkout session');
       }
 
-      // Redirect to Stripe Checkout
-      const stripe = await stripePromise;
-      const { error: stripeError } = await stripe.redirectToCheckout({
-        sessionId: data.sessionId,
-      });
-
-      if (stripeError) {
-        throw stripeError;
+      // Redirect directly to Stripe's URL (new method)
+      if (data.url) {
+        window.location.href = data.url;
+      } else {
+        throw new Error('No checkout URL received');
       }
     } catch (err) {
       console.error('Checkout error:', err);
@@ -78,7 +66,9 @@ export default function CheckoutPage() {
             </h2>
             <p className="text-gray-600 mb-6">{error}</p>
             <button
-              onClick={() => router.back()}
+              onClick={router.push(
+                '/booking/786669f9-89be-446d-a03a-00e863267b39'
+              )}
               className="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
             >
               Go Back
