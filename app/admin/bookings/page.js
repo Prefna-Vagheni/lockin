@@ -1,7 +1,8 @@
 import { supabaseAdmin } from '@/lib/supabase';
+import Link from 'next/link';
 
 export default async function AdminBookingsPage() {
-  // Fetch all bookings
+  // Fetch all bookings with related data
   const { data: bookings, error } = await supabaseAdmin
     .from('bookings')
     .select(
@@ -12,6 +13,7 @@ export default async function AdminBookingsPage() {
         email
       ),
       staff:staff_id (
+        id,
         users:user_id (
           name
         )
@@ -22,17 +24,29 @@ export default async function AdminBookingsPage() {
       )
     `
     )
-    .order('start_time', { ascending: false });
+    .order('start_time', { ascending: true });
 
-  const now = new Date();
-  const upcomingBookings =
-    bookings?.filter((b) => new Date(b.start_time) >= now) || [];
-  const pastBookings =
-    bookings?.filter((b) => new Date(b.start_time) < now) || [];
+  // Group bookings by status
+  const upcoming =
+    bookings?.filter((b) => {
+      const isPast = new Date(b.start_time) < new Date();
+      return !isPast && b.status === 'confirmed';
+    }) || [];
+
+  const past =
+    bookings?.filter((b) => {
+      const isPast = new Date(b.start_time) < new Date();
+      return isPast || b.status === 'completed';
+    }) || [];
+
+  const cancelled = bookings?.filter((b) => b.status === 'cancelled') || [];
 
   return (
     <div className="px-4 py-6 sm:px-0">
-      <h1 className="text-3xl font-bold text-gray-900 mb-6">All Bookings</h1>
+      <div className="mb-6">
+        <h1 className="text-3xl font-bold text-gray-900">All Bookings</h1>
+        <p className="text-gray-600 mt-2">Manage all salon appointments</p>
+      </div>
 
       {error && (
         <div className="bg-red-50 text-red-600 p-4 rounded mb-4">
@@ -42,165 +56,175 @@ export default async function AdminBookingsPage() {
 
       {/* Stats */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-        <div className="bg-white rounded-lg shadow p-6">
-          <p className="text-sm text-gray-600 mb-1">Total Bookings</p>
-          <p className="text-3xl font-bold text-gray-900">
-            {bookings?.length || 0}
-          </p>
-        </div>
-        <div className="bg-white rounded-lg shadow p-6">
-          <p className="text-sm text-gray-600 mb-1">Upcoming</p>
-          <p className="text-3xl font-bold text-blue-600">
-            {upcomingBookings.length}
-          </p>
-        </div>
-        <div className="bg-white rounded-lg shadow p-6">
-          <p className="text-sm text-gray-600 mb-1">Completed</p>
-          <p className="text-3xl font-bold text-green-600">
-            {pastBookings.length}
-          </p>
+        <StatCard
+          title="Upcoming"
+          value={upcoming.length}
+          color="blue"
+          icon="📅"
+        />
+        <StatCard
+          title="Completed"
+          value={past.length}
+          color="green"
+          icon="✅"
+        />
+        <StatCard
+          title="Cancelled"
+          value={cancelled.length}
+          color="red"
+          icon="❌"
+        />
+      </div>
+
+      {/* Tabs */}
+      <div className="mb-6">
+        <div className="border-b border-gray-200">
+          <nav className="-mb-px flex space-x-8">
+            <TabButton active label="Upcoming" count={upcoming.length} />
+            <TabButton label="Past" count={past.length} />
+            <TabButton label="Cancelled" count={cancelled.length} />
+          </nav>
         </div>
       </div>
 
-      {/* Upcoming Bookings */}
-      <div className="mb-8">
-        <h2 className="text-2xl font-bold text-gray-900 mb-4">
-          Upcoming Appointments
-        </h2>
-        {upcomingBookings.length === 0 ? (
-          <div className="bg-white rounded-lg shadow p-8 text-center">
-            <p className="text-gray-500">No upcoming appointments</p>
-          </div>
-        ) : (
-          <div className="bg-white rounded-lg shadow overflow-hidden">
-            <table className="min-w-full divide-y divide-gray-200">
-              <thead className="bg-gray-50">
-                <tr>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
-                    Date & Time
-                  </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
-                    Client
-                  </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
-                    Staff
-                  </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
-                    Service
-                  </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
-                    Price
-                  </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
-                    Status
-                  </th>
-                </tr>
-              </thead>
-              <tbody className="bg-white divide-y divide-gray-200">
-                {upcomingBookings.map((booking) => (
-                  <BookingRow key={booking.id} booking={booking} />
-                ))}
-              </tbody>
-            </table>
-          </div>
-        )}
-      </div>
-
-      {/* Past Bookings */}
-      {pastBookings.length > 0 && (
-        <div>
-          <h2 className="text-2xl font-bold text-gray-900 mb-4">
-            Past Appointments
-          </h2>
-          <div className="bg-white rounded-lg shadow overflow-hidden opacity-75">
-            <table className="min-w-full divide-y divide-gray-200">
-              <thead className="bg-gray-50">
-                <tr>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
-                    Date & Time
-                  </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
-                    Client
-                  </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
-                    Staff
-                  </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
-                    Service
-                  </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
-                    Price
-                  </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
-                    Status
-                  </th>
-                </tr>
-              </thead>
-              <tbody className="bg-white divide-y divide-gray-200">
-                {pastBookings.map((booking) => (
-                  <BookingRow key={booking.id} booking={booking} />
-                ))}
-              </tbody>
-            </table>
-          </div>
+      {/* Bookings List - Upcoming (default) */}
+      {upcoming.length === 0 ? (
+        <div className="bg-white rounded-lg shadow p-12 text-center">
+          <div className="text-6xl mb-4">📅</div>
+          <h3 className="text-xl font-semibold text-gray-700 mb-2">
+            No upcoming bookings
+          </h3>
+          <p className="text-gray-500">New bookings will appear here</p>
+        </div>
+      ) : (
+        <div className="space-y-4">
+          {upcoming.map((booking) => (
+            <BookingCard key={booking.id} booking={booking} />
+          ))}
         </div>
       )}
     </div>
   );
 }
 
-function BookingRow({ booking }) {
-  const startTime = new Date(booking.start_time);
+function StatCard({ title, value, color, icon }) {
+  const colors = {
+    blue: 'bg-blue-50 text-blue-600',
+    green: 'bg-green-50 text-green-600',
+    red: 'bg-red-50 text-red-600',
+  };
 
   return (
-    <tr>
-      <td className="px-6 py-4 whitespace-nowrap">
-        <div className="text-sm font-medium text-gray-900">
-          {startTime.toLocaleDateString('en-US', {
-            month: 'short',
-            day: 'numeric',
-            year: 'numeric',
-          })}
+    <div className={`${colors[color]} rounded-lg p-6`}>
+      <div className="flex items-center justify-between">
+        <div>
+          <p className="text-sm font-medium opacity-80">{title}</p>
+          <p className="text-3xl font-bold mt-1">{value}</p>
         </div>
-        <div className="text-sm text-gray-500">
-          {startTime.toLocaleTimeString('en-US', {
-            hour: 'numeric',
-            minute: '2-digit',
-            hour12: true,
-          })}
+        <div className="text-4xl">{icon}</div>
+      </div>
+    </div>
+  );
+}
+
+function TabButton({ label, count, active = false }) {
+  return (
+    <button
+      className={`
+        py-4 px-1 border-b-2 font-medium text-sm
+        ${
+          active
+            ? 'border-blue-500 text-blue-600'
+            : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
+        }
+      `}
+    >
+      {label} ({count})
+    </button>
+  );
+}
+
+function BookingCard({ booking }) {
+  const startTime = new Date(booking.start_time);
+  const isToday = startTime.toDateString() === new Date().toDateString();
+
+  return (
+    <div className="bg-white rounded-lg shadow hover:shadow-lg transition p-6">
+      <div className="flex items-start justify-between">
+        <div className="flex-1">
+          {/* Header */}
+          <div className="flex items-center space-x-3 mb-3">
+            <h3 className="text-xl font-semibold text-gray-900">
+              {booking.service?.name}
+            </h3>
+            {isToday && (
+              <span className="px-2 py-1 bg-orange-100 text-orange-800 text-xs font-semibold rounded">
+                TODAY
+              </span>
+            )}
+            <span
+              className={`px-2 py-1 text-xs font-semibold rounded ${
+                booking.status === 'confirmed'
+                  ? 'bg-green-100 text-green-800'
+                  : booking.status === 'cancelled'
+                  ? 'bg-red-100 text-red-800'
+                  : 'bg-gray-100 text-gray-800'
+              }`}
+            >
+              {booking.status.toUpperCase()}
+            </span>
+          </div>
+
+          {/* Details Grid */}
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
+            <div>
+              <p className="text-gray-500">Client</p>
+              <p className="font-medium text-gray-900">
+                {booking.client?.name}
+              </p>
+              <p className="text-gray-500 text-xs">{booking.client?.email}</p>
+            </div>
+            <div>
+              <p className="text-gray-500">Hairdresser</p>
+              <p className="font-medium text-gray-900">
+                {booking.staff?.users?.name}
+              </p>
+            </div>
+            <div>
+              <p className="text-gray-500">Date & Time</p>
+              <p className="font-medium text-gray-900">
+                {startTime.toLocaleDateString('en-US', {
+                  month: 'short',
+                  day: 'numeric',
+                })}
+              </p>
+              <p className="text-gray-600">
+                {startTime.toLocaleTimeString('en-US', {
+                  hour: 'numeric',
+                  minute: '2-digit',
+                  hour12: true,
+                })}
+              </p>
+            </div>
+            <div>
+              <p className="text-gray-500">Price</p>
+              <p className="font-bold text-green-600 text-lg">
+                ${booking.total_price}
+              </p>
+            </div>
+          </div>
         </div>
-      </td>
-      <td className="px-6 py-4 whitespace-nowrap">
-        <div className="text-sm font-medium text-gray-900">
-          {booking.client?.name}
+
+        {/* Actions */}
+        <div className="ml-4">
+          <Link
+            href={`/admin/bookings/${booking.id}`}
+            className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 text-sm font-medium"
+          >
+            View Details
+          </Link>
         </div>
-        <div className="text-sm text-gray-500">{booking.client?.email}</div>
-      </td>
-      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-        {booking.staff?.users?.name}
-      </td>
-      <td className="px-6 py-4 whitespace-nowrap">
-        <div className="text-sm text-gray-900">{booking.service?.name}</div>
-        <div className="text-sm text-gray-500">
-          {booking.service?.duration_minutes} mins
-        </div>
-      </td>
-      <td className="px-6 py-4 whitespace-nowrap text-sm font-semibold text-green-600">
-        ${booking.total_price}
-      </td>
-      <td className="px-6 py-4 whitespace-nowrap">
-        <span
-          className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${
-            booking.status === 'confirmed'
-              ? 'bg-green-100 text-green-800'
-              : booking.status === 'cancelled'
-              ? 'bg-red-100 text-red-800'
-              : 'bg-gray-100 text-gray-800'
-          }`}
-        >
-          {booking.status}
-        </span>
-      </td>
-    </tr>
+      </div>
+    </div>
   );
 }
