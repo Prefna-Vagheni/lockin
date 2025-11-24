@@ -1,7 +1,7 @@
 import { auth } from '@/auth';
 import { redirect } from 'next/navigation';
 import Link from 'next/link';
-import SignOutButton from '@/components/SignOutButton';
+import SignOutButton from '@/_components/SignOutButton';
 
 export default async function Dashboard() {
   const session = await auth();
