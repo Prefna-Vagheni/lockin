@@ -2,7 +2,6 @@ import { auth } from '@/auth';
 import { redirect } from 'next/navigation';
 import Link from 'next/link';
 import SignOutButton from '@/_components/SignOutButton';
-import Image from 'next/image';
 
 export default async function Dashboard() {
   const session = await auth();
@@ -20,7 +19,7 @@ export default async function Dashboard() {
               <h1 className="text-2xl font-bold text-gray-900">LockIn</h1>
             </div>
             <div className="flex items-center space-x-4">
-              <Image
+              <img
                 src={session.user.image}
                 alt={session.user.name}
                 className="w-8 h-8 rounded-full"

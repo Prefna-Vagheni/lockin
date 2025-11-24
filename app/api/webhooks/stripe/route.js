@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server';
 import Stripe from 'stripe';
 import { supabaseAdmin } from '@/lib/supabase';
 import { Resend } from 'resend';
-import { bookingConfirmationEmail } from '@/lib/emails/Booking-Confirmation';
+import { bookingConfirmationEmail } from '@/lib/emails/booking-confirmation';
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET;
