@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
 
 export default function CheckoutPage() {
@@ -8,6 +8,7 @@ export default function CheckoutPage() {
   const router = useRouter();
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
+  const hasRun = useRef(false); // Prevent double execution
 
   const bookingData = {
     staffId: searchParams.get('staffId'),
@@ -22,8 +23,12 @@ export default function CheckoutPage() {
   };
 
   useEffect(() => {
+    // Prevent double execution in development mode
+    if (hasRun.current) return;
+    hasRun.current = true;
+
     handleCheckout();
-  }, []); // I consider adding the missing dependancy here since  get duplicates here
+  }, []); // Empty dependency is fine now with useRef guard
 
   const handleCheckout = async () => {
     try {
@@ -42,7 +47,7 @@ export default function CheckoutPage() {
         throw new Error(data.error || 'Failed to create checkout session');
       }
 
-      // Redirect directly to Stripe's URL (new method)
+      // Redirect to Stripe
       if (data.url) {
         window.location.href = data.url;
       } else {
@@ -66,9 +71,7 @@ export default function CheckoutPage() {
             </h2>
             <p className="text-gray-600 mb-6">{error}</p>
             <button
-              onClick={router.push(
-                '/booking/786669f9-89be-446d-a03a-00e863267b39'
-              )}
+              onClick={() => router.back()}
               className="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
             >
               Go Back
