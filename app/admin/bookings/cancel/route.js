@@ -6,25 +6,51 @@ export async function POST(request) {
   try {
     const session = await auth();
 
-    if (!session || session.user.role !== 'admin') {
+    console.log('Cancel request - Session:', session?.user);
+
+    if (!session) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
+    if (session.user.role !== 'admin') {
+      return NextResponse.json(
+        { error: 'Admin access required' },
+        { status: 403 }
+      );
+    }
+
     const { bookingId } = await request.json();
+    console.log('Attempting to cancel booking:', bookingId);
+
+    if (!bookingId) {
+      return NextResponse.json(
+        { error: 'Booking ID required' },
+        { status: 400 }
+      );
+    }
 
     // Update booking status
-    const { error } = await supabaseAdmin
+    const { data, error } = await supabaseAdmin
       .from('bookings')
       .update({ status: 'cancelled' })
-      .eq('id', bookingId);
+      .eq('id', bookingId)
+      .select();
 
-    if (error) throw error;
+    console.log('Update result:', { data, error });
+
+    if (error) {
+      console.error('Supabase error:', error);
+      throw new Error(error.message);
+    }
 
     // TODO: Send cancellation email to client
 
-    return NextResponse.json({ success: true });
+    return NextResponse.json({ success: true, data });
   } catch (error) {
     console.error('Error cancelling booking:', error);
-    return NextResponse.json({ error: error.message }, { status: 500 });
+    return NextResponse.json(
+      { error: error.message || 'Uknown error', details: error },
+      { status: 500 }
+    );
   }
 }
