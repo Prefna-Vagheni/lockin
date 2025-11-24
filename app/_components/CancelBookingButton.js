@@ -6,6 +6,7 @@ import { useRouter } from 'next/navigation';
 export default function CancelBookingButton({ bookingId }) {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
 
   const handleCancel = async () => {
     if (
@@ -17,8 +18,11 @@ export default function CancelBookingButton({ bookingId }) {
     }
 
     setLoading(true);
+    setError('');
 
     try {
+      console.log('Cancelling booking:', bookingId);
+
       const response = await fetch('/api/bookings/cancel', {
         method: 'POST',
         headers: {
@@ -27,26 +31,36 @@ export default function CancelBookingButton({ bookingId }) {
         body: JSON.stringify({ bookingId }),
       });
 
+      const data = await response.json();
+      console.log('Response:', data);
+
       if (!response.ok) {
-        throw new Error('Failed to cancel booking');
+        throw new Error(data.error || 'Failed to cancel booking');
       }
 
       alert('Booking cancelled successfully');
       router.push('/admin/bookings');
       router.refresh();
     } catch (error) {
-      alert('Error cancelling booking: ' + error.message);
+      alert('Cancel error: ' + error);
       setLoading(false);
     }
   };
 
   return (
-    <button
-      onClick={handleCancel}
-      disabled={loading}
-      className="px-6 py-3 bg-red-600 text-white rounded-lg hover:bg-red-700 font-medium disabled:opacity-50"
-    >
-      {loading ? 'Cancelling...' : 'Cancel Booking'}
-    </button>
+    <div>
+      {error && (
+        <div className="bg-red-50 text-red-600 p-4 rounded mb-4">
+          Error: {error}
+        </div>
+      )}
+      <button
+        onClick={handleCancel}
+        disabled={loading}
+        className="px-6 py-3 bg-red-600 text-white rounded-lg hover:bg-red-700 font-medium disabled:opacity-50 disabled:cursor-not-allowed"
+      >
+        {loading ? 'Cancelling...' : 'Cancel Booking'}
+      </button>
+    </div>
   );
 }
