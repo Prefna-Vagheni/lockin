@@ -114,12 +114,21 @@ function StaffCard({ staff }) {
           </p>
         )}
 
-        <Link
-          href={`/admin/staff/${staff.id}`}
-          className="block text-center px-4 py-2 bg-gray-100 text-gray-700 rounded hover:bg-gray-200 font-medium"
-        >
-          Edit Details
-        </Link>
+        {/* Action Buttons */}
+        <div className="space-y-2">
+          <Link
+            href={`/admin/staff/${staff.id}`}
+            className="block text-center px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 font-medium"
+          >
+            Edit Details
+          </Link>
+          <Link
+            href={`/admin/staff/${staff.id}/availability`}
+            className="block text-center px-4 py-2 bg-gray-100 text-gray-700 rounded hover:bg-gray-200 font-medium"
+          >
+            ⏰ Set Working Hours
+          </Link>
+        </div>
       </div>
     </div>
   );
