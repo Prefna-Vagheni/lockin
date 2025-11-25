@@ -2,6 +2,7 @@ import { auth } from '@/auth';
 import { redirect } from 'next/navigation';
 import Link from 'next/link';
 import SignOutButton from '@/_components/SignOutButton';
+import ThemeToggle from '@/_components/ThemeToggle';
 
 export default async function Dashboard() {
   const session = await auth();
@@ -11,25 +12,29 @@ export default async function Dashboard() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <nav className="bg-white shadow">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
+      <nav className="bg-white dark:bg-gray-800 shadow border-b dark:border-gray-700">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between h-16">
             <div className="flex items-center">
-              <h1 className="text-2xl font-bold text-gray-900">LockIn</h1>
+              <h1 className="text-2xl font-bold text-gray-900 dark:text-white">
+                LockIn
+              </h1>
             </div>
             <div className="flex items-center space-x-4">
+              <ThemeToggle />
               <img
                 src={session.user.image}
                 alt={session.user.name}
                 className="w-8 h-8 rounded-full"
-              />{' '}
-              {/* opt imafw */}
-              <span className="text-gray-700">{session.user.name}</span>
+              />
+              <span className="text-gray-700 dark:text-gray-300">
+                {session.user.name}
+              </span>
               {session.user.role === 'admin' && (
                 <Link
                   href="/admin"
-                  className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
+                  className="px-4 py-2 bg-blue-600 dark:bg-blue-700 text-white rounded hover:bg-blue-700 dark:hover:bg-blue-600"
                 >
                   Admin Panel
                 </Link>
@@ -42,18 +47,20 @@ export default async function Dashboard() {
 
       <main className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
         <div className="px-4 py-6 sm:px-0">
-          <div className="bg-white rounded-lg shadow p-6 mb-6">
-            <h2 className="text-2xl font-bold mb-4">Welcome back!</h2>
+          <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-6 mb-6 border dark:border-gray-700">
+            <h2 className="text-2xl font-bold mb-4 dark:text-white">
+              Welcome back!
+            </h2>
             <div className="space-y-2">
-              <p>
+              <p className="dark:text-gray-300">
                 <strong>Email:</strong> {session.user.email}
               </p>
-              <p>
+              <p className="dark:text-gray-300">
                 <strong>Name:</strong> {session.user.name}
               </p>
-              <p>
-                <strong>Role:</strong>{' '}
-                <span className="px-2 py-1 bg-blue-100 text-blue-800 rounded text-sm">
+              <p className="dark:text-gray-300">
+                <strong>Role:</strong>
+                <span className="px-2 py-1 bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 rounded text-sm ml-2">
                   {session.user.role}
                 </span>
               </p>
@@ -66,25 +73,25 @@ export default async function Dashboard() {
               <>
                 <Link
                   href="/admin"
-                  className="p-6 bg-white rounded-lg shadow hover:shadow-lg transition"
+                  className="p-6 bg-white dark:bg-gray-800 rounded-lg shadow hover:shadow-lg transition border dark:border-gray-700"
                 >
                   <div className="text-4xl mb-3">⚙️</div>
-                  <h3 className="text-xl font-semibold text-gray-900 mb-2">
+                  <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">
                     Admin Panel
                   </h3>
-                  <p className="text-gray-600">
+                  <p className="text-gray-600 dark:text-gray-400">
                     Manage staff, services, and bookings
                   </p>
                 </Link>
                 <Link
                   href="/admin/bookings"
-                  className="p-6 bg-white rounded-lg shadow hover:shadow-lg transition"
+                  className="p-6 bg-white dark:bg-gray-800 rounded-lg shadow hover:shadow-lg transition border dark:border-gray-700"
                 >
                   <div className="text-4xl mb-3">📅</div>
-                  <h3 className="text-xl font-semibold text-gray-900 mb-2">
+                  <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">
                     All Bookings
                   </h3>
-                  <p className="text-gray-600">
+                  <p className="text-gray-600 dark:text-gray-400">
                     View and manage all appointments
                   </p>
                 </Link>
@@ -93,25 +100,25 @@ export default async function Dashboard() {
               <>
                 <Link
                   href="/booking"
-                  className="p-6 bg-white rounded-lg shadow hover:shadow-lg transition"
+                  className="p-6 bg-white dark:bg-gray-800 rounded-lg shadow hover:shadow-lg transition border dark:border-gray-700"
                 >
                   <div className="text-4xl mb-3">✂️</div>
-                  <h3 className="text-xl font-semibold text-gray-900 mb-2">
+                  <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">
                     Book Appointment
                   </h3>
-                  <p className="text-gray-600">
+                  <p className="text-gray-600 dark:text-gray-400">
                     Schedule your next salon visit
                   </p>
                 </Link>
                 <Link
                   href="/my-bookings"
-                  className="p-6 bg-white rounded-lg shadow hover:shadow-lg transition"
+                  className="p-6 bg-white dark:bg-gray-800 rounded-lg shadow hover:shadow-lg transition border dark:border-gray-700"
                 >
                   <div className="text-4xl mb-3">📅</div>
-                  <h3 className="text-xl font-semibold text-gray-900 mb-2">
+                  <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">
                     My Appointments
                   </h3>
-                  <p className="text-gray-600">
+                  <p className="text-gray-600 dark:text-gray-400">
                     View your upcoming and past bookings
                   </p>
                 </Link>
