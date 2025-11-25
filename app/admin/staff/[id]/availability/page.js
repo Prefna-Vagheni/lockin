@@ -1,6 +1,6 @@
 import { supabaseAdmin } from '@/lib/supabase';
 import { notFound } from 'next/navigation';
-import AvailabilityForm from '@/components/AvailabilityForm';
+import AvailabilityForm from '@/_components/AvailabilityForm';
 
 export default async function StaffAvailabilityPage({ params }) {
   const { id } = await params;

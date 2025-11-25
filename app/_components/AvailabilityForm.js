@@ -2,7 +2,8 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { saveStaffAvailability } from '@/app/actions/availability';
+import { saveStaffAvailability } from '@/actions/availabity';
+// import { saveStaffAvailability } from '@/actions/availability';
 
 const DAYS = [
   { value: 0, label: 'Sunday' },
