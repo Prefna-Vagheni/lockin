@@ -224,6 +224,14 @@ export default async function MyBookingDetailsPage({ params }) {
 
             {/* Actions */}
             <div className="flex gap-4">
+              {canCancel && (
+                <Link
+                  href={`/my-bookings/${booking.id}/reschedule`}
+                  className="flex-1 px-6 py-3 bg-green-600 text-white text-center rounded-lg hover:bg-green-700 font-medium"
+                >
+                  📅 Reschedule
+                </Link>
+              )}
               <Link
                 href="/booking"
                 className="flex-1 px-6 py-3 bg-blue-600 text-white text-center rounded-lg hover:bg-blue-700 font-medium"

@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { rescheduleBooking } from '@/app/actions/reschedule';
+import { rescheduleBooking } from '@/actions/reschedule';
 
 export default function RescheduleForm({
   bookingId,

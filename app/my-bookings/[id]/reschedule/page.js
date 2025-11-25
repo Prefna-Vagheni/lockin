@@ -10,7 +10,7 @@ export default async function ReschedulePage({ params }) {
     redirect('/auth/signin');
   }
 
-  const { id } = params;
+  const { id } = await params;
 
   // Fetch booking
   const { data: booking, error } = await supabaseAdmin
