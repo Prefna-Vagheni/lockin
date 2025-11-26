@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import toast from 'react-hot-toast';
 
 export default function CustomerCancelButton({ bookingId }) {
   const router = useRouter();
@@ -31,11 +32,11 @@ export default function CustomerCancelButton({ bookingId }) {
         throw new Error('Failed to cancel booking');
       }
 
-      alert('Appointment cancelled successfully');
+      toast.success('Appointment cancelled successfully');
       router.push('/my-bookings');
       router.refresh();
     } catch (error) {
-      alert('Error cancelling appointment: ' + error.message);
+      toast.error('Error cancelling appointment: ' + error.message);
       setLoading(false);
     }
   };

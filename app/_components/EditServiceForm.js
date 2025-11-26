@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { updateService, deleteService } from '@/actions/services';
+import toast from 'react-hot-toast';
 
 export default function EditServiceForm({ service }) {
   const router = useRouter();
@@ -49,13 +50,16 @@ export default function EditServiceForm({ service }) {
       const result = await deleteService(service.id);
 
       if (result.success) {
+        toast.success('Service Successfuly updated');
         router.push('/admin/services');
         router.refresh();
       } else {
+        toast.error('Could now update service');
         setError(result.error || 'Failed to delete service');
         setDeleting(false);
       }
     } catch (err) {
+      toast.error('Error' + err.message);
       console.error('Error:', err);
       setError('An unexpected error occurred');
       setDeleting(false);

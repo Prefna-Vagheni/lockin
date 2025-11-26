@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { rescheduleBooking } from '@/actions/reschedule';
+import toast from 'react-hot-toast';
 
 export default function RescheduleForm({
   bookingId,
@@ -81,14 +82,16 @@ export default function RescheduleForm({
       );
 
       if (result.success) {
-        alert('Appointment rescheduled successfully!');
+        toast.success('Appointment rescheduled successfully!');
         router.push(`/my-bookings/${bookingId}`);
         router.refresh();
       } else {
+        toast.error('Failed to reschedule');
         setError(result.error || 'Failed to reschedule');
         setLoading(false);
       }
     } catch (err) {
+      toast.error('Error ', +err.message);
       setError('An unexpected error occurred');
       setLoading(false);
     }

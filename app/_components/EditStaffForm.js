@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { updateStaff, deleteStaff } from '@/actions/staff';
+import toast from 'react-hot-toast';
 // import { updateStaff, deleteStaff } from '@/app/actions/staff';
 
 export default function EditStaffForm({ staff }) {
@@ -24,14 +25,17 @@ export default function EditStaffForm({ staff }) {
       const result = await updateStaff(staff.id, formData);
 
       if (result.success) {
+        toast.success('Staff successfully updated');
         router.push('/admin/staff');
         router.refresh();
       } else {
+        toast.error('Could not update Staff member');
         setError(result.error || 'Failed to update staff member');
         setLoading(false);
       }
     } catch (err) {
       console.error('Error:', err);
+      toast.error('An unexpected error occurred');
       setError('An unexpected error occurred');
       setLoading(false);
     }
@@ -53,14 +57,17 @@ export default function EditStaffForm({ staff }) {
       const result = await deleteStaff(staff.id);
 
       if (result.success) {
+        toast.success('Staff successfully deleted');
         router.push('/admin/staff');
         router.refresh();
       } else {
+        toast.error('Failed to delete staff member');
         setError(result.error || 'Failed to delete staff member');
         setDeleting(false);
       }
     } catch (err) {
       console.error('Error:', err);
+      toast.error('Something went wrong');
       setError('An unexpected error occurred');
       setDeleting(false);
     }

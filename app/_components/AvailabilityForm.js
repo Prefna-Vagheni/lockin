@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { saveStaffAvailability } from '@/actions/availabity';
+import toast from 'react-hot-toast';
 // import { saveStaffAvailability } from '@/actions/availability';
 
 const DAYS = [
@@ -64,15 +65,16 @@ export default function AvailabilityForm({ staffId, existingAvailability }) {
       const result = await saveStaffAvailability(staffId, availability);
 
       if (result.success) {
-        alert('Working hours saved successfully!');
+        toast.success('Working hours saved successfully!');
         router.push('/admin/staff');
         router.refresh();
       } else {
+        toast.error('Failed to save availability');
         setError(result.error || 'Failed to save availability');
         setLoading(false);
       }
     } catch (err) {
-      console.error('Error:', err);
+      toast.error('Error:', +err.message);
       setError('An unexpected error occurred');
       setLoading(false);
     }

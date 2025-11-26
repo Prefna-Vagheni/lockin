@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { createService } from '@/actions/services';
+import toast from 'react-hot-toast';
 
 export default function AddServiceForm() {
   const router = useRouter();
@@ -19,14 +20,17 @@ export default function AddServiceForm() {
       const result = await createService(formData);
 
       if (result.success) {
+        toast.success('Service added successfully');
         router.push('/admin/services');
         router.refresh();
       } else {
+        toast.error('Error while adding service');
         setError(result.error || 'Failed to create service');
         setLoading(false);
       }
     } catch (err) {
       console.error('Error:', err);
+      toast.error('Something went wrong');
       setError('An unexpected error occurred');
       setLoading(false);
     }
