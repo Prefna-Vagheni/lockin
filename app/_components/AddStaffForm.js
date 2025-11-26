@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { createStaff } from '@/actions/staff';
+import toast from 'react-hot-toast';
 
 export default function AddStaffForm() {
   const router = useRouter();
@@ -14,19 +15,34 @@ export default function AddStaffForm() {
     setLoading(true);
     setError('');
 
+    const loadingToast = toast.loading('Creating staff member...');
+
     try {
       const formData = new FormData(e.target);
       const result = await createStaff(formData);
 
       if (result.success) {
+        // Dismiss loading and show success
+        toast.success('Staff member created successfully!', {
+          id: loadingToast,
+        });
+
         router.push('/admin/staff');
         router.refresh();
       } else {
+        // Dismiss loading and show error
+        toast.error(result.error || 'Failed to create staff member', {
+          id: loadingToast,
+        });
+
         setError(result.error || 'Failed to create staff member');
         setLoading(false);
       }
     } catch (err) {
       console.error('Error:', err);
+      toast.error('An unexpected error occurred', {
+        id: loadingToast,
+      });
       setError('An unexpected error occurred');
       setLoading(false);
     }

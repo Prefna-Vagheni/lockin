@@ -1,9 +1,28 @@
 'use client';
 
+import { useEffect, useState } from 'react';
 import { useTheme } from '@/contexts/ThemeContext';
 
 export default function ThemeToggle() {
   const { theme, toggleTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
+
+  // Run only on client
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  // During SSR, render a safe placeholder (not theme dependent)
+  if (!mounted) {
+    return (
+      <button
+        className="p-2 rounded-lg bg-gray-200 dark:bg-gray-700 transition"
+        aria-label="Loading theme"
+      >
+        <div className="w-5 h-5" />
+      </button>
+    );
+  }
 
   return (
     <button

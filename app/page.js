@@ -21,7 +21,7 @@ export default function Home() {
               </Link>
               <Link
                 href="/booking"
-                className="px-6 py-2 bg-white dark:bg-gray-800 text-blue-600 dark:text-blue-400 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 font-semibold transition"
+                className="px-3 sm:px-6 py-2 bg-white dark:bg-gray-800 text-blue-600 dark:text-blue-400 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 font-semibold transition"
               >
                 Book Now
               </Link>

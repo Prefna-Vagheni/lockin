@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import toast from 'react-hot-toast';
 
 export default function CancelBookingButton({ bookingId }) {
   const router = useRouter();
@@ -18,6 +19,7 @@ export default function CancelBookingButton({ bookingId }) {
     }
 
     setLoading(true);
+    const loadingToast = toast.loading('Cancelling booking...');
     setError('');
 
     try {
@@ -38,11 +40,18 @@ export default function CancelBookingButton({ bookingId }) {
         throw new Error(data.error || 'Failed to cancel booking');
       }
 
-      alert('Booking cancelled successfully');
+      toast.success('Booking cancelled successfully! Email sent to client.', {
+        id: loadingToast,
+        duration: 5000,
+      });
+
       router.push('/admin/bookings');
       router.refresh();
     } catch (error) {
-      alert('Cancel error: ' + error);
+      toast.error('Error: ' + error.message, {
+        id: loadingToast,
+      });
+
       setLoading(false);
     }
   };
