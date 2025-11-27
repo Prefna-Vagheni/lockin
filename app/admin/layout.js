@@ -3,6 +3,7 @@ import { redirect } from 'next/navigation';
 import Link from 'next/link';
 import ThemeToggle from '@/_components/ThemeToggle';
 import AdminNavLinks from '@/_components/AdminNavLinks';
+import Image from 'next/image';
 
 export default async function AdminLayout({ children }) {
   const session = await auth();
@@ -27,7 +28,12 @@ export default async function AdminLayout({ children }) {
               >
                 <span className="hidden sm:block">LockIn</span>{' '}
                 <span className="inline-block sm:hidden">
-                  <img src="image/lockin.png" alt="Lockin logo" />
+                  <Image
+                    src="image/lockin.png"
+                    alt="Lockin logo"
+                    width={32}
+                    height={32}
+                  />
                 </span>{' '}
                 Admin
               </Link>
