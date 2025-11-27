@@ -15,7 +15,7 @@ export default function AdminNavLinks() {
   const pathname = usePathname();
 
   return (
-    <div className="hidden md:flex space-x-4">
+    <div className="hidden md:flex space-x-2 lg:space-x-4">
       {links.map(({ href, label }) => (
         <Link
           key={href}
