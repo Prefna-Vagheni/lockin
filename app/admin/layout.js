@@ -27,6 +27,7 @@ export default async function AdminLayout({ children }) {
               >
                 LockIn Admin
               </Link>
+              {/* NavLinks */}
               <AdminNavLinks />
               {/* <div className="hidden md:flex space-x-4">
                 <Link
