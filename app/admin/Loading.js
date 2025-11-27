@@ -18,7 +18,7 @@ export default function Loading() {
         {[...Array(4)].map((_, i) => (
           <div
             key={i}
-            className="rounded-lg shadow-lg p-6 text-white bg-gradient-to-br from-gray-300 to-gray-200"
+            className="rounded-lg shadow-lg p-6 text-white bg-linear-to-br from-gray-300 to-gray-200"
           >
             <div className="flex items-center justify-between mb-2">
               <div className="h-3 w-24 bg-white/40 rounded"></div>
