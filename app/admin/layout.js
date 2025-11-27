@@ -25,7 +25,7 @@ export default async function AdminLayout({ children }) {
                 href="/admin"
                 className="text-xl md:text-2xl font-bold text-blue-600 dark:text-blue-400"
               >
-                <span className="hidden sm:inline-block">LockIn</span>{' '}
+                <span className="hidden sm:block">LockIn</span>{' '}
                 <span className="inline-block sm:hidden">
                   <img src="image/lockin.png" alt="Lockin logo" />
                 </span>{' '}
