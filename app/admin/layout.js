@@ -2,6 +2,7 @@ import { auth } from '@/auth';
 import { redirect } from 'next/navigation';
 import Link from 'next/link';
 import ThemeToggle from '@/_components/ThemeToggle';
+import AdminNavLinks from '@/_components/AdminNavLinks';
 
 export default async function AdminLayout({ children }) {
   const session = await auth();
@@ -26,7 +27,8 @@ export default async function AdminLayout({ children }) {
               >
                 LockIn Admin
               </Link>
-              <div className="hidden md:flex space-x-4">
+              <AdminNavLinks />
+              {/* <div className="hidden md:flex space-x-4">
                 <Link
                   href="/admin"
                   className="px-3 py-2 rounded-md text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
@@ -51,7 +53,7 @@ export default async function AdminLayout({ children }) {
                 >
                   Bookings
                 </Link>
-              </div>
+              </div> */}
             </div>
             <div className="flex items-center space-x-2 md:space-x-4">
               <ThemeToggle />
