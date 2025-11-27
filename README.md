@@ -236,7 +236,7 @@ lockin/
 │   ├── error.js              # Global error handler
 │   ├── not-found.js          # 404 page
 │   └── loading.js            # Global loading
-├── components/               # Reusable components
+├── _components/               # Reusable components
 │   ├── AddStaffForm.js
 │   ├── EditStaffForm.js
 │   ├── AddServiceForm.js
@@ -703,5 +703,3 @@ _(Add screenshots here after deployment)_
 Ready to deploy! See `DEPLOYMENT.md` for deployment instructions.
 
 ---
-
-**Built with ❤️ and lots of ☕**
