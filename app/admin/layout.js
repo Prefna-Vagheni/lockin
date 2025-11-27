@@ -33,6 +33,7 @@ export default async function AdminLayout({ children }) {
                     alt="Lockin logo"
                     width={32}
                     height={32}
+                    priority
                   />
                 </span>{' '}
                 Admin
