@@ -9,7 +9,8 @@ export default function ThemeToggle() {
 
   // Run only on client
   useEffect(() => {
-    setMounted(true);
+    // setMounted(true);
+    requestAnimationFrame(() => setMounted(true)); // I used this way just to avoid the strict mode warning. nothing more.
   }, []);
 
   // During SSR, render a safe placeholder (not theme dependent)

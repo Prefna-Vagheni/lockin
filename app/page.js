@@ -1,5 +1,7 @@
 import Link from 'next/link';
 import ThemeToggle from '@/_components/ThemeToggle';
+import HomeNav from './_components/HomeNav';
+import FeatureCard from './_components/FeatureCard';
 
 export default function Home() {
   return (
@@ -8,26 +10,7 @@ export default function Home() {
       <div className="relative bg-linear-to-br from-blue-600 via-purple-600 to-pink-500 dark:from-blue-900 dark:via-purple-900 dark:to-pink-900 overflow-hidden">
         <div className="absolute inset-0 bg-black opacity-10 dark:opacity-30"></div>
 
-        <nav className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-          <div className="flex justify-between items-center">
-            <div className="text-white text-3xl font-bold">LockIn</div>
-            <div className="flex items-center space-x-4">
-              <ThemeToggle />
-              <Link
-                href="/auth/signin"
-                className="text-white hover:text-gray-200 font-medium"
-              >
-                Sign In
-              </Link>
-              <Link
-                href="/booking"
-                className="px-3 sm:px-6 py-2 bg-white dark:bg-gray-800 text-blue-600 dark:text-blue-400 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 font-semibold transition"
-              >
-                Book Now
-              </Link>
-            </div>
-          </div>
-        </nav>
+        <HomeNav />
 
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 md:py-32">
           <div className="text-center">
@@ -84,36 +67,7 @@ export default function Home() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <FeatureCard
-              icon="👥"
-              title="Expert Hairdressers"
-              description="Choose from our talented professionals, each with their own specialties and styles"
-            />
-            <FeatureCard
-              icon="💳"
-              title="Secure Payments"
-              description="Pay safely with Stripe. Your booking is confirmed only after successful payment"
-            />
-            <FeatureCard
-              icon="📅"
-              title="Easy Scheduling"
-              description="See real-time availability and book your perfect time slot in seconds"
-            />
-            <FeatureCard
-              icon="📧"
-              title="Instant Confirmation"
-              description="Get immediate email confirmation with all your appointment details"
-            />
-            <FeatureCard
-              icon="🔄"
-              title="Flexible Management"
-              description="Reschedule or cancel your appointments easily from your dashboard"
-            />
-            <FeatureCard
-              icon="⏰"
-              title="No Show-Up Fees"
-              description="Payment required upfront ensures no wasted time for you or our stylists"
-            />
+            <FeatureCard />
           </div>
         </div>
       </div>
@@ -189,14 +143,14 @@ export default function Home() {
   );
 }
 
-function FeatureCard({ icon, title, description }) {
-  return (
-    <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 hover:shadow-xl transition border dark:border-gray-700">
-      <div className="text-5xl mb-4">{icon}</div>
-      <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">
-        {title}
-      </h3>
-      <p className="text-gray-600 dark:text-gray-400">{description}</p>
-    </div>
-  );
-}
+// function FeatureCard({ icon='', title, description, color }) {
+//   return (
+//     <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 hover:shadow-xl transition border dark:border-gray-700">
+//       <div className={`w-14 h-14 bg-${color}-100 rounded-full flex items-center justify-center mb-6`}><{icon} className="w-7 h-7 text-rose-600" /></div>
+//       <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">
+//         {title}
+//       </h3>
+//       <p className="text-gray-600 dark:text-gray-400">{description}</p>
+//     </div>
+//   );
+// }
