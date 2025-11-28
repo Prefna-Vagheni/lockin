@@ -5,6 +5,7 @@ import Link from 'next/link';
 import ThemeToggle from '@/_components/ThemeToggle';
 import SignOutButton from '@/_components/SignOutButton';
 import { Menu, X } from 'lucide-react';
+import Image from 'next/image';
 
 export default function DashboardHeader({ user }) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -40,11 +41,14 @@ export default function DashboardHeader({ user }) {
 
             {/* User Info */}
             <div className="flex items-center space-x-3">
-              <img
-                src={user.image}
-                alt={user.name}
-                className="w-8 h-8 rounded-full"
-              />
+              <div className="w-8 aspect-square relative">
+                <Image
+                  src={user.image}
+                  alt={user.name}
+                  fill
+                  className="object-cover rounded-full"
+                />
+              </div>
               <span className="text-gray-700 dark:text-gray-300 font-medium">
                 {user.name}
               </span>
