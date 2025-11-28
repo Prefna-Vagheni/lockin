@@ -117,11 +117,14 @@ export default function DashboardHeader({ user }) {
             {/* Mobile Footer Area (User Profile & Sign Out) */}
             <div className="mt-auto pt-8 border-t border-gray-200 dark:border-gray-700">
               <div className="flex items-center mb-6">
-                <img
-                  className="h-12 w-12 rounded-full"
-                  src={user.image}
-                  alt=""
-                />
+                <div className="relative w-12 aspect-square">
+                  <Image
+                    className="object-contain rounded-full"
+                    src={user.image}
+                    fill
+                    alt={user.name}
+                  />
+                </div>
                 <div className="ml-4">
                   <div className="text-lg font-medium text-gray-900 dark:text-white">
                     {user.name}
