@@ -2,13 +2,13 @@ import { signIn } from '@/auth';
 
 export default function SignIn() {
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50">
-      <div className="max-w-md w-full space-y-8 p-8 bg-white rounded-lg shadow">
+    <div className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-gray-800">
+      <div className="max-w-md w-full space-y-8 p-8 bg-white dark:bg-gray-700 rounded-lg shadow">
         <div>
-          <h2 className="text-center text-3xl font-bold text-gray-900">
+          <h2 className="text-center text-3xl font-bold text-gray-900 dark:text-gray-200">
             Sign in to LockIn
           </h2>
-          <p className="mt-2 text-center text-gray-600">
+          <p className="mt-2 text-center text-gray-600 dark:text-gray-300">
             Book your salon appointment with ease
           </p>
         </div>
@@ -21,7 +21,7 @@ export default function SignIn() {
         >
           <button
             type="submit"
-            className="w-full flex items-center justify-center gap-3 py-3 px-4 border border-gray-300 rounded-lg shadow-sm bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition"
+            className="w-full flex items-center justify-center gap-3 py-3 px-4 border border-gray-300 dark:border-gray-500 rounded-lg shadow-sm bg-white dark:bg-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition"
           >
             <svg className="w-5 h-5" viewBox="0 0 24 24">
               <path
@@ -41,13 +41,13 @@ export default function SignIn() {
                 d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"
               />
             </svg>
-            <span className="text-gray-700 font-medium">
+            <span className="text-gray-700 dark:text-gray-300 font-medium">
               Continue with Google
             </span>
           </button>
         </form>
 
-        <p className="text-center text-sm text-gray-500">
+        <p className="text-center text-sm text-gray-500 dark:text-gray-300">
           By signing in, you agree to our Terms of Service
         </p>
       </div>

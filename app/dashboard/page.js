@@ -1,8 +1,7 @@
 import { auth } from '@/auth';
 import { redirect } from 'next/navigation';
 import Link from 'next/link';
-import SignOutButton from '@/_components/SignOutButton';
-import ThemeToggle from '@/_components/ThemeToggle';
+import DashboardHeader from '@/_components/DashboardHeader';
 
 export default async function Dashboard() {
   const session = await auth();
@@ -13,37 +12,7 @@ export default async function Dashboard() {
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
-      <nav className="bg-white dark:bg-gray-800 shadow border-b dark:border-gray-700">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between h-16">
-            <div className="flex items-center">
-              <h1 className="text-2xl font-bold text-gray-900 dark:text-white">
-                LockIn
-              </h1>
-            </div>
-            <div className="flex items-center space-x-4">
-              <ThemeToggle />
-              <img
-                src={session.user.image}
-                alt={session.user.name}
-                className="w-8 h-8 rounded-full"
-              />
-              <span className="text-gray-700 dark:text-gray-300">
-                {session.user.name}
-              </span>
-              {session.user.role === 'admin' && (
-                <Link
-                  href="/admin"
-                  className="px-4 py-2 bg-blue-600 dark:bg-blue-700 text-white rounded hover:bg-blue-700 dark:hover:bg-blue-600"
-                >
-                  Admin Panel
-                </Link>
-              )}
-              <SignOutButton />
-            </div>
-          </div>
-        </div>
-      </nav>
+      <DashboardHeader user={session.user} />
 
       <main className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
         <div className="px-4 py-6 sm:px-0">
