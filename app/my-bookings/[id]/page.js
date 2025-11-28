@@ -3,6 +3,7 @@ import { redirect, notFound } from 'next/navigation';
 import { supabaseAdmin } from '@/lib/supabase';
 import Link from 'next/link';
 import CustomerCancelButton from '@/_components/CustomerCancelButton';
+import Image from 'next/image';
 
 export default async function MyBookingDetailsPage({ params }) {
   const session = await auth();
@@ -64,7 +65,7 @@ export default async function MyBookingDetailsPage({ params }) {
         {/* Main Card */}
         <div className="bg-white rounded-lg shadow-lg overflow-hidden">
           {/* Header */}
-          <div className="bg-gradient-to-r from-blue-500 to-purple-600 p-6 text-white">
+          <div className="bg-linear-to-r from-blue-500 to-purple-600 p-6 text-white">
             <div className="flex items-start justify-between">
               <div>
                 <h1 className="text-3xl font-bold mb-2">
@@ -103,13 +104,16 @@ export default async function MyBookingDetailsPage({ params }) {
                 Your Hairdresser
               </h2>
               <div className="flex items-start space-x-4">
-                <div className="w-20 h-20 rounded-full overflow-hidden bg-gray-200 flex-shrink-0">
+                <div className="w-20 h-20 rounded-full overflow-hidden bg-gray-200 shrink-0">
                   {booking.staff?.photo_url ? (
-                    <img
-                      src={booking.staff.photo_url}
-                      alt={booking.staff?.users?.name}
-                      className="w-full h-full object-cover"
-                    />
+                    <div className="relative w-full h-full">
+                      <Image
+                        src={booking.staff.photo_url}
+                        alt={booking.staff?.users?.name}
+                        className="object-cover"
+                        fill
+                      />
+                    </div>
                   ) : (
                     <div className="w-full h-full flex items-center justify-center text-gray-400 text-3xl">
                       👤
