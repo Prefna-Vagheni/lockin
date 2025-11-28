@@ -98,10 +98,10 @@ export default function BookingForm({
   const maxDateStr = maxDate.toISOString().split('T')[0];
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-6">
+    <form onSubmit={handleSubmit} className="space-y-6 ">
       {/* Service Selection */}
       <div>
-        <label className="block text-sm font-medium text-gray-700 mb-3">
+        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-3">
           Select Service *
         </label>
         <div className="grid grid-cols-1 gap-3">
@@ -115,17 +115,17 @@ export default function BookingForm({
               }}
               className={`p-4 border-2 rounded-lg text-left transition ${
                 selectedService?.id === service.id
-                  ? 'border-blue-600 bg-blue-50'
-                  : 'border-gray-200 hover:border-gray-300'
+                  ? 'border-blue-600 bg-blue-50 dark:border-blue-400 dark:bg-blue-800'
+                  : 'border-gray-200 hover:border-gray-300 dark:border-gray-800 dark:hover:border-gray-900'
               }`}
             >
               <div className="flex justify-between items-start">
                 <div>
-                  <h3 className="font-semibold text-gray-900">
+                  <h3 className="font-semibold text-gray-900 dark:text-gray-100">
                     {service.name}
                   </h3>
                   {service.description && (
-                    <p className="text-sm text-gray-600 mt-1">
+                    <p className="text-sm text-gray-600 mt-1 dark:text-gray-400">
                       {service.description}
                     </p>
                   )}
@@ -134,7 +134,7 @@ export default function BookingForm({
                   </p>
                 </div>
                 <div className="text-right">
-                  <p className="text-xl font-bold text-green-600">
+                  <p className="text-xl font-bold text-green-600 dark:text-green-300">
                     ${service.price}
                   </p>
                 </div>
@@ -147,7 +147,7 @@ export default function BookingForm({
       {/* Date Selection */}
       {selectedService && (
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">
+          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
             Select Date *
           </label>
           <input
@@ -159,7 +159,7 @@ export default function BookingForm({
             }}
             min={minDate}
             max={maxDateStr}
-            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:border-gray-700 dark:focus:ring-blue-800"
             required
           />
         </div>
@@ -168,12 +168,12 @@ export default function BookingForm({
       {/* Time Selection */}
       {selectedService && selectedDate && (
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-3">
+          <label className="block text-sm font-medium text-gray-700 dark:text-gray-400 mb-3">
             Select Time *
           </label>
           {timeSlots.length === 0 ? (
-            <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4 text-center">
-              <p className="text-yellow-800">
+            <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4 text-center dark:text-yellow-800 dark:border-yellow-900">
+              <p className="text-yellow-800 dark:text-yellow-200">
                 No available time slots for this date. Please choose another
                 date.
               </p>
@@ -187,8 +187,8 @@ export default function BookingForm({
                   onClick={() => setSelectedTime(slot.time)}
                   className={`px-4 py-3 border-2 rounded-lg font-medium transition ${
                     selectedTime === slot.time
-                      ? 'border-blue-600 bg-blue-600 text-white'
-                      : 'border-gray-200 hover:border-blue-300 text-gray-700'
+                      ? 'border-blue-600 bg-blue-600 text-white dark:border-blue-300 dark:bg-blue-300 dark:text-gray-800'
+                      : 'border-gray-200 hover:border-blue-300 text-gray-700 dark:text-gray-400 dark:border-blue-600 dark:hover:border-blue-900'
                   }`}
                 >
                   {slot.display}
@@ -202,21 +202,25 @@ export default function BookingForm({
       {/* Summary & Submit */}
       {selectedService && selectedDate && selectedTime && (
         <div className="border-t pt-6">
-          <div className="bg-gray-50 rounded-lg p-6 mb-6">
-            <h3 className="font-semibold text-gray-900 mb-4">
+          <div className="bg-gray-50 dark:bg-gray-900 rounded-lg p-6 mb-6">
+            <h3 className="font-semibold text-gray-900 dark:text-gray-100 mb-4">
               Booking Summary
             </h3>
             <div className="space-y-2 text-sm">
               <div className="flex justify-between">
-                <span className="text-gray-600">Hairdresser:</span>
+                <span className="text-gray-600 dark:text-gray-300">
+                  Hairdresser:
+                </span>
                 <span className="font-medium">{staff.users.name}</span>
               </div>
               <div className="flex justify-between">
-                <span className="text-gray-600">Service:</span>
+                <span className="text-gray-600 dark:text-gray-300">
+                  Service:
+                </span>
                 <span className="font-medium">{selectedService.name}</span>
               </div>
               <div className="flex justify-between">
-                <span className="text-gray-600">Date:</span>
+                <span className="text-gray-600 dark:text-gray-300">Date:</span>
                 <span className="font-medium">
                   {new Date(selectedDate).toLocaleDateString('en-US', {
                     weekday: 'long',
@@ -227,18 +231,22 @@ export default function BookingForm({
                 </span>
               </div>
               <div className="flex justify-between">
-                <span className="text-gray-600">Time:</span>
+                <span className="text-gray-600 dark:text-gray-300">Time:</span>
                 <span className="font-medium">{selectedTime}</span>
               </div>
               <div className="flex justify-between">
-                <span className="text-gray-600">Duration:</span>
+                <span className="text-gray-600 dark:text-gray-300">
+                  Duration:
+                </span>
                 <span className="font-medium">
                   {selectedService.duration_minutes} minutes
                 </span>
               </div>
               <div className="flex justify-between pt-3 border-t">
-                <span className="text-gray-900 font-semibold">Total:</span>
-                <span className="text-2xl font-bold text-green-600">
+                <span className="text-gray-900 font-semibold dark:text-gray-100">
+                  Total:
+                </span>
+                <span className="text-2xl font-bold text-green-600 dark:text-green-400">
                   ${selectedService.price}
                 </span>
               </div>
@@ -248,12 +256,12 @@ export default function BookingForm({
           <button
             type="submit"
             disabled={loading}
-            className="w-full px-6 py-4 bg-blue-600 text-white rounded-lg hover:bg-blue-700 font-semibold text-lg disabled:opacity-50 disabled:cursor-not-allowed transition"
+            className="w-full px-6 py-4 bg-blue-600 text-white rounded-lg hover:bg-blue-700 font-semibold text-lg disabled:opacity-50 disabled:cursor-not-allowed dark:bg-blue-300 dark:text-gray-700 dark:hover:bg-blue-400 transition"
           >
             {loading ? 'Processing...' : 'Proceed to Payment'}
           </button>
 
-          <p className="text-sm text-gray-500 text-center mt-4">
+          <p className="text-sm text-gray-500 dark:text-gray-300 text-center mt-4">
             You&apos;ll be redirected to secure payment. Payment is required to
             confirm your booking.
           </p>

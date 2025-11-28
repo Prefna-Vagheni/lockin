@@ -2,6 +2,7 @@ import { auth } from '@/auth';
 import { supabaseAdmin } from '@/lib/supabase';
 import { notFound, redirect } from 'next/navigation';
 import BookingForm from '@/_components/BookingForm';
+import Link from 'next/link';
 
 export default async function StaffBookingPage({ params }) {
   const session = await auth();
@@ -49,21 +50,21 @@ export default async function StaffBookingPage({ params }) {
     .order('start_time', { ascending: true });
 
   return (
-    <div className="min-h-screen bg-gray-50 py-12">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-800 py-12">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Back Button */}
 
-        <a
+        <Link
           href="/booking"
-          className="inline-flex items-center text-blue-600 hover:text-blue-800 mb-6"
+          className="inline-flex items-center text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-600  mb-6"
         >
           ← Back to all staff
-        </a>
+        </Link>
 
         {/* Staff Info Card */}
-        <div className="bg-white rounded-lg shadow-lg p-6 mb-8">
+        <div className="bg-white dark:bg-gray-900 rounded-lg shadow-lg p-6 mb-8">
           <div className="flex items-start space-x-6">
-            <div className="w-24 h-24 rounded-full overflow-hidden bg-gray-200 flex-shrink-0">
+            <div className="w-24 h-24 rounded-full overflow-hidden bg-gray-200 dark:bg-gray-600 shrink-0">
               {staff.photo_url ? (
                 <img
                   src={staff.photo_url}
@@ -71,22 +72,26 @@ export default async function StaffBookingPage({ params }) {
                   className="w-full h-full object-cover"
                 />
               ) : (
-                <div className="w-full h-full flex items-center justify-center text-gray-400 text-4xl">
-                  👤
+                <div className="w-full h-full flex items-center justify-center text-gray-400 dark:text-gray-600 text-4xl">
+                  👤 {/* HERE I WILL ADD A REAL AVATAR */}
                 </div>
               )}
             </div>
             <div>
-              <h1 className="text-3xl font-bold text-gray-900 mb-2">
+              <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-200 mb-2">
                 Book with {staff.users?.name}
               </h1>
-              {staff.bio && <p className="text-gray-600 mb-3">{staff.bio}</p>}
+              {staff.bio && (
+                <p className="text-gray-600 dark:text-gray-300 mb-3">
+                  {staff.bio}
+                </p>
+              )}
               {staff.specialties && staff.specialties.length > 0 && (
                 <div className="flex flex-wrap gap-2">
                   {staff.specialties.map((specialty, idx) => (
                     <span
                       key={idx}
-                      className="px-3 py-1 bg-blue-100 text-blue-800 text-sm rounded-full"
+                      className="px-3 py-1 bg-blue-100 dark:bg-blue-800 text-blue-800 dark:text-blue-100 text-sm rounded-full"
                     >
                       {specialty}
                     </span>
@@ -98,8 +103,8 @@ export default async function StaffBookingPage({ params }) {
         </div>
 
         {/* Booking Form */}
-        <div className="bg-white rounded-lg shadow-lg p-6">
-          <h2 className="text-2xl font-bold text-gray-900 mb-6">
+        <div className="bg-white dark:bg-gray-900 rounded-lg shadow-lg p-6">
+          <h2 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-6">
             Select Service & Time
           </h2>
           <BookingForm

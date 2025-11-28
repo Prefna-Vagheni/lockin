@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import ThemeToggle from '@/_components/ThemeToggle';
 import SignOutButton from '@/_components/SignOutButton';
+import { Menu, X } from 'lucide-react';
 
 export default function DashboardHeader({ user }) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -70,35 +71,8 @@ export default function DashboardHeader({ user }) {
               className="p-2 rounded-md text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none"
             >
               <span className="sr-only">Open menu</span>
-              {isMobileMenuOpen ? (
-                <svg
-                  className="h-6 w-6"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M6 18L18 6M6 6l12 12"
-                  />
-                </svg>
-              ) : (
-                <svg
-                  className="h-6 w-6"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M4 6h16M4 12h16M4 18h16"
-                  />
-                </svg>
-              )}
+
+              {isMobileMenuOpen ? <X /> : <Menu />}
             </button>
           </div>
         </div>
