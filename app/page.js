@@ -96,15 +96,3 @@ export default function Home() {
     </div>
   );
 }
-
-// function FeatureCard({ icon='', title, description, color }) {
-//   return (
-//     <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 hover:shadow-xl transition border dark:border-gray-700">
-//       <div className={`w-14 h-14 bg-${color}-100 rounded-full flex items-center justify-center mb-6`}><{icon} className="w-7 h-7 text-rose-600" /></div>
-//       <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">
-//         {title}
-//       </h3>
-//       <p className="text-gray-600 dark:text-gray-400">{description}</p>
-//     </div>
-//   );
-// }
