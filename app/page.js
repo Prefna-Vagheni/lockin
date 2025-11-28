@@ -1,5 +1,4 @@
 import Link from 'next/link';
-import ThemeToggle from '@/_components/ThemeToggle';
 import HomeNav from './_components/HomeNav';
 import FeatureCard from './_components/FeatureCard';
 import Footer from './_components/Footer';
