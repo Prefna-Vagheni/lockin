@@ -4,12 +4,12 @@ import {
   CalendarCheck,
   CreditCard,
   Repeat,
-  Users,
+  Scissors,
 } from 'lucide-react';
 
 const cards = [
   {
-    icon: Users,
+    icon: Scissors,
     title: 'Expert Haidressers',
     color: 'rose',
     description:
