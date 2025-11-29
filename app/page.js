@@ -31,7 +31,7 @@ export default function Home() {
                 Salon Experience
               </span>
             </h1>
-            <p className="text-xl md:text-2xl text-white/90 mb-10 max-w-2xl mx-auto">
+            <p className="text-xl md:text-2xl text-gray-900 dark:text-white/90 mb-10 max-w-2xl mx-auto">
               Choose from our talented hairdressers, pick your service, and
               secure your appointment with instant payment
             </p>
