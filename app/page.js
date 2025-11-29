@@ -2,13 +2,23 @@ import Link from 'next/link';
 import HomeNav from './_components/HomeNav';
 import FeatureCard from './_components/FeatureCard';
 import Footer from './_components/Footer';
+import Image from 'next/image';
 
 export default function Home() {
   return (
     <div className="min-h-screen dark:bg-gray-900">
       {/* Hero Section */}
-      <div className="relative bg-linear-to-br from-blue-600 via-purple-600 to-pink-500 dark:from-blue-900 dark:via-purple-900 dark:to-pink-900 overflow-hidden">
-        <div className="absolute inset-0 bg-black opacity-10 dark:opacity-30"></div>
+      <section className="relative overflow-hidden">
+        {/* <div className="relative bg-linear-to-br from-blue-600 via-purple-600 to-pink-500 dark:from-blue-900 dark:via-purple-900 dark:to-pink-900 overflow-hidden"> */}
+        {/* <div className="absolute inset-0 bg-black opacity-10 dark:opacity-30"></div> */}
+        {/* <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1560066984-138dadb4c035?w=1200')] bg-cover bg-center opacity-10"></div> */}
+        <Image
+          src="/image/hero-bg.jpg"
+          alt="Modern salon interior"
+          fill
+          priority
+          className="object-cover opacity-50"
+        />
 
         <HomeNav />
 
@@ -52,7 +62,7 @@ export default function Home() {
             ></path>
           </svg>
         </div>
-      </div>
+      </section>
 
       {/* Features Section */}
       <div className="bg-gray-50 dark:bg-gray-900 py-20">
