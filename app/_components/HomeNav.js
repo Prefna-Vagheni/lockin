@@ -10,7 +10,7 @@ function HomeNav() {
           <ThemeToggle />
           <Link
             href="/auth/signin"
-            className="text-gray-900 dark:text-gray-50 dark:border-gray-900 hover:text-gray-200 font-medium"
+            className="text-gray-900 dark:text-yellow-300 hover:text-gray-200 font-medium"
           >
             Sign In
           </Link>
