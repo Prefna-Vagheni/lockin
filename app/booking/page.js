@@ -91,7 +91,7 @@ export default async function BookingPage() {
             {/* Staff Selection */}
             <section className="mb-12">
               <h2 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-6">
-                <span className="bg-red-500 p-0.5 rounded-lg dark:bg-gray-600">
+                <span className="bg-gray-500 p-0.5 rounded-lg dark:bg-gray-600">
                   Step 1
                 </span>
                 : Choose Your Hairdresser
