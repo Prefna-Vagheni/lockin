@@ -91,7 +91,8 @@ export default async function BookingPage() {
             {/* Staff Selection */}
             <section className="mb-12">
               <h2 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-6">
-                Step 1: Choose Your Hairdresser
+                <span className="bg-red-500 p-0.5 rounded-lg">Step 1</span>:
+                Choose Your Hairdresser
               </h2>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {staff.map((member) => (
