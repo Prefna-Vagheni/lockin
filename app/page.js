@@ -38,7 +38,7 @@ export default function Home() {
             <div className="flex gap-4 justify-center flex-wrap">
               <Link
                 href="/booking"
-                className="px-8 py-4 bg-white dark:bg-gray-800 text-blue-600 dark:text-blue-400 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 font-bold text-lg shadow-lg transform hover:scale-105 transition"
+                className="px-8 py-4 bg-red-600 dark:bg-red-500 text-gray-100 dark:text-gray-200 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 font-bold text-lg shadow-lg transform hover:scale-105 transition"
               >
                 Book Appointment →
               </Link>
