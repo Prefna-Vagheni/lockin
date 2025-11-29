@@ -10,13 +10,13 @@ function HomeNav() {
           <ThemeToggle />
           <Link
             href="/auth/signin"
-            className="text-gray-900 hover:text-gray-200 font-medium"
+            className="text-gray-900 dark:text-gray-50 dark:border-gray-900 hover:text-gray-200 font-medium"
           >
             Sign In
           </Link>
           <Link
             href="/booking"
-            className="px-3 sm:px-6 py-2 bg-gray-900 dark:bg-gray-100 text-gray-100 dark:text-gray-300 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 font-semibold transition"
+            className="px-3 sm:px-6 py-2 bg-gray-900 dark:bg-gray-100 text-gray-100 dark:text-gray-900 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 font-semibold transition"
           >
             Book Now
           </Link>
