@@ -1,5 +1,7 @@
+import ThemeToggle from '@/_components/ThemeToggle';
 import { auth } from '@/auth';
 import { supabaseAdmin } from '@/lib/supabase';
+import Image from 'next/image';
 import Link from 'next/link';
 import { redirect } from 'next/navigation';
 
@@ -47,6 +49,7 @@ export default async function BookingPage() {
               </Link>
             </div>
             <div className="flex items-center space-x-4">
+              <ThemeToggle />
               <span className="text-gray-700 dark:text-gray-300">
                 {session.user.name}
               </span>
@@ -119,11 +122,16 @@ function StaffSelectionCard({ staff, services }) {
       {/* Photo */}
       <div className="aspect-square bg-gray-200 dark:bg-gray-700 relative">
         {staff.photo_url ? (
-          <img
-            src={staff.photo_url}
-            alt={staff.users?.name}
-            className="w-full h-full object-cover"
-          />
+          <div className="relative aspect-square w-full">
+            <Image
+              src={staff.photo_url}
+              alt={staff.users?.name}
+              fill
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+              loading="eager"
+              className="object-cover "
+            />
+          </div>
         ) : (
           <div className="w-full h-full flex items-center justify-center text-gray-400 dark:text-gray-600 text-6xl">
             👤
