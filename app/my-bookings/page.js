@@ -152,7 +152,7 @@ function BookingCard({ booking, upcoming = false }) {
         <div className="flex items-start justify-between mb-4">
           <div className="flex items-center space-x-4">
             {/* Staff Photo */}
-            <div className="w-16 h-16 rounded-full overflow-hidden bg-gray-200 flex-shrink-0">
+            <div className="w-16 h-16 rounded-full overflow-hidden bg-gray-200 shrink-0">
               {booking.staff?.photo_url ? (
                 <img
                   src={booking.staff.photo_url}
