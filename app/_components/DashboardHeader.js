@@ -2,8 +2,8 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import ThemeToggle from '@/_components/ThemeToggle';
-import SignOutButton from '@/_components/SignOutButton';
+import ThemeToggle from './ThemeToggle';
+import SignOutButton from './SignOutButton';
 import { Menu, X } from 'lucide-react';
 import Image from 'next/image';
 

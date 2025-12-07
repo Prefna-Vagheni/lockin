@@ -1,4 +1,4 @@
-import EditServiceForm from '@/_components/EditServiceForm';
+import EditServiceForm from '../../../_components/EditServiceForm';
 import { supabaseAdmin } from '@/lib/supabase';
 import { notFound } from 'next/navigation';
 

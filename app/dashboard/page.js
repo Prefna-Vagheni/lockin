@@ -1,7 +1,7 @@
-import { auth } from '@/auth';
+import { auth } from '../auth';
 import { redirect } from 'next/navigation';
 import Link from 'next/link';
-import DashboardHeader from '@/_components/DashboardHeader';
+import DashboardHeader from '../_components/DashboardHeader';
 
 export default async function Dashboard() {
   const session = await auth();

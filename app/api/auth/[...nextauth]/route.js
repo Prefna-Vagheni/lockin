@@ -3,7 +3,7 @@
 // import { supabase } from '@/lib/supabase';
 // import bcrypt from 'bcryptjs';
 
-import { handlers } from '@/auth';
+import { handlers } from '../../../auth';
 
 // const { handlers } = require(
 

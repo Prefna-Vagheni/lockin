@@ -3,8 +3,8 @@
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import ThemeToggle from '@/_components/ThemeToggle';
-import AdminNavLinks from '@/_components/AdminNavLinks';
+import ThemeToggle from './ThemeToggle';
+import AdminNavLinks from './AdminNavLinks';
 
 export default function AdminHeader({ user }) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);

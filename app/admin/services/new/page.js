@@ -1,4 +1,4 @@
-import AddServiceForm from '@/_components/AddServiceForm';
+import AddServiceForm from '../../../_components/AddServiceForm';
 
 export default function NewServicePage() {
   return (

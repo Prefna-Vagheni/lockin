@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { updateService, deleteService } from '@/actions/services';
+import { updateService, deleteService } from '../actions/services';
 import toast from 'react-hot-toast';
 
 export default function EditServiceForm({ service }) {

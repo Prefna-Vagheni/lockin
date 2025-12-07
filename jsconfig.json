@@ -3,9 +3,10 @@
     "baseUrl": ".",
     "paths": {
       "@/*": ["app/*"],
-      "@/lib": ["lib/*"],
-      "@/_components": ["_components/*"],
-      "@/contexts": ["contexts/*"]
+      "@/_components/*": ["app/_components/*"],
+      "@/lib/*": ["app/lib/*"],
+      "@/contexts/*": ["app/contexts/*"],
+      "@/auth": ["app/auth"]
     }
   }
 }

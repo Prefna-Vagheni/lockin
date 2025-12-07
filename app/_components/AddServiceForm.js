@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { createService } from '@/actions/services';
+import { createService } from '../actions/services';
 import toast from 'react-hot-toast';
 
 export default function AddServiceForm() {
