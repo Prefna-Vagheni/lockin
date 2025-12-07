@@ -1,9 +1,3 @@
-// import Loading from '@/_components/Loading';
-
-// export default function AdminLoading() {
-//   return <Loading />;
-// }
-
 // Shimmer skeleton utility class
 const shimmer =
   'relative overflow-hidden before:absolute before:inset-0 before:-translate-x-full \
