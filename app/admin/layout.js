@@ -1,6 +1,5 @@
 import { auth } from '../auth';
 import { redirect } from 'next/navigation';
-import Link from 'next/link';
 // import ThemeToggle from '@/_components/ThemeToggle';
 // import AdminNavLinks from '@/_components/AdminNavLinks';
 import Image from 'next/image';
