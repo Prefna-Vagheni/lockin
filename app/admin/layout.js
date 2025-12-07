@@ -1,10 +1,6 @@
 import { auth } from '../auth';
 import { redirect } from 'next/navigation';
-// import ThemeToggle from '@/_components/ThemeToggle';
-// import AdminNavLinks from '@/_components/AdminNavLinks';
-import Image from 'next/image';
-// import MobileAdminMenu from '@/_components/MobileAdminMenu';
-// import AdminHeader from '@/_components/AdminHeader';
+
 import AdminHeader from '../_components/AdminHeader';
 
 export default async function AdminLayout({ children }) {
