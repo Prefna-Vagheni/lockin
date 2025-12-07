@@ -1,8 +1,3 @@
-// import NextAuth from 'next-auth';
-// import CredentialsProvider from 'next-auth/providers/credentials';
-// import { supabase } from '@/lib/supabase';
-// import bcrypt from 'bcryptjs';
-
 import { handlers } from '../../../auth';
 
 // const { handlers } = require(
