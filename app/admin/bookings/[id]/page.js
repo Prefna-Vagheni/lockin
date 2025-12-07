@@ -1,7 +1,7 @@
 import { supabaseAdmin } from '../../lib/supabase';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
-import CancelBookingButton from '@/_components/CancelBookingButton';
+import CancelBookingButton from '../../_components/CancelBookingButton';
 
 export default async function BookingDetailsPage({ params }) {
   const { id } = await params;
