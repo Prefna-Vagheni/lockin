@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { saveStaffAvailability } from '@/actions/availabity';
+import { saveStaffAvailability } from '../actions/availabity';
 import toast from 'react-hot-toast';
 // import { saveStaffAvailability } from '@/actions/availability';
 

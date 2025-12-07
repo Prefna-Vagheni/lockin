@@ -1,4 +1,4 @@
-import AddStaffForm from '@/_components/AddStaffForm';
+import AddStaffForm from '../../../_components/AddStaffForm';
 
 export default function NewStaffPage() {
   return (

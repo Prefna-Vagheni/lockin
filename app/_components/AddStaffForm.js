@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { createStaff } from '@/actions/staff';
+import { createStaff } from '../actions/staff';
 import toast from 'react-hot-toast';
 
 export default function AddStaffForm() {
