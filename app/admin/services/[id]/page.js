@@ -1,5 +1,5 @@
 import EditServiceForm from '../../../_components/EditServiceForm';
-import { supabaseAdmin } from '@/lib/supabase';
+import { supabaseAdmin } from '../../../lib/supabase';
 import { notFound } from 'next/navigation';
 
 export default async function EditServicePage({ params }) {

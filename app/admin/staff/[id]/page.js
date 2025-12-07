@@ -1,4 +1,4 @@
-import EditStaffForm from '@/_components/EditStaffForm';
+import EditStaffForm from '../../../_components/EditStaffForm';
 import { supabaseAdmin } from '@/lib/supabase';
 import { notFound } from 'next/navigation';
 
