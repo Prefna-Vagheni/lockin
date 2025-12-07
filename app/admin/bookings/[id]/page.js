@@ -1,4 +1,4 @@
-import { supabaseAdmin } from '@/lib/supabase';
+import { supabaseAdmin } from '../../lib/supabase';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import CancelBookingButton from '@/_components/CancelBookingButton';
