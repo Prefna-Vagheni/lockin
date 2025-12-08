@@ -52,13 +52,13 @@ export default function BookingSuccessPage() {
             <div className="space-y-3">
               <Link
                 href="/dashboard"
-                className="block w-full px-6 py-3 bg-blue-600 dark:bg-blue-500 text-white dark:text-gray-700 rounded-lg hover:bg-blue-700 dark:hover:bg-blue-400 font-semibold"
+                className="block w-full px-6 py-3 bg-blue-600 dark:bg-blue-500 text-white dark:text-gray-200 rounded-lg hover:bg-blue-700 dark:hover:bg-blue-400 font-semibold"
               >
                 View My Bookings
               </Link>
               <Link
                 href="/booking"
-                className="block w-full px-6 py-3 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-400 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-800 font-semibold"
+                className="block w-full px-6 py-3 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-800 font-semibold"
               >
                 Book Another Appointment
               </Link>

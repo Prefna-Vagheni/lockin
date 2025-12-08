@@ -97,7 +97,7 @@ export async function POST(request) {
         });
 
         await resend.emails.send({
-          from: 'LockIn <onboarding@resend.dev>', // Use your verified domain in production
+          from: 'LockIn <onboarding@resend.dev>', // Here wecneed to use our  verified domain in production
           to: customer.email,
           subject: emailContent.subject,
           html: emailContent.html,
