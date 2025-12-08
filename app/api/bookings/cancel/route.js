@@ -1,8 +1,8 @@
 import { NextResponse } from 'next/server';
-import { auth } from '@/auth';
-import { supabaseAdmin } from '@/lib/supabase';
+import { auth } from '../../../auth';
+import { supabaseAdmin } from '../../../lib/supabase';
 import { Resend } from 'resend';
-import { bookingCancellationEmail } from '@/lib/emails/booking-cancellation';
+import { bookingCancellationEmail } from '../../../lib/emails/booking-cancellation';
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 

@@ -1,7 +1,7 @@
-import { auth } from '@/auth';
-import { supabaseAdmin } from '@/lib/supabase';
+import { auth } from '../../auth';
+import { supabaseAdmin } from '../../lib/supabase';
 import { notFound, redirect } from 'next/navigation';
-import BookingForm from '@/_components/BookingForm';
+import BookingForm from '../../_components/BookingForm';
 import Link from 'next/link';
 
 export default async function StaffBookingPage({ params }) {

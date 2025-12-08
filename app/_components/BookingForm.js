@@ -116,7 +116,7 @@ export default function BookingForm({
               className={`p-4 border-2 rounded-lg text-left transition ${
                 selectedService?.id === service.id
                   ? 'border-blue-600 bg-blue-50 dark:border-blue-400 dark:bg-blue-800'
-                  : 'border-gray-200 hover:border-gray-300 dark:border-gray-800 dark:hover:border-gray-900'
+                  : 'border-gray-200 hover:border-gray-300 dark:border-gray-800 dark:hover:border-gray-700'
               }`}
             >
               <div className="flex justify-between items-start">
@@ -256,7 +256,7 @@ export default function BookingForm({
           <button
             type="submit"
             disabled={loading}
-            className="w-full px-6 py-4 bg-blue-600 text-white rounded-lg hover:bg-blue-700 font-semibold text-lg disabled:opacity-50 disabled:cursor-not-allowed dark:bg-blue-300 dark:text-gray-700 dark:hover:bg-blue-400 transition"
+            className="w-full px-6 py-4 bg-blue-600 text-white rounded-lg hover:bg-blue-700 font-semibold text-lg disabled:opacity-50 disabled:cursor-not-allowed dark:bg-blue-400 dark:text-gray-200 dark:hover:bg-blue-400 transition"
           >
             {loading ? 'Processing...' : 'Proceed to Payment'}
           </button>

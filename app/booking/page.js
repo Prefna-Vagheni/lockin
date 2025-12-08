@@ -1,12 +1,13 @@
-import ThemeToggle from '@/_components/ThemeToggle';
-import { auth } from '@/auth';
-import { supabaseAdmin } from '@/lib/supabase';
+import ThemeToggle from '../_components/ThemeToggle';
+import { auth } from '../auth';
+import { supabaseAdmin } from '../lib/supabase';
 import Image from 'next/image';
 import Link from 'next/link';
 import { redirect } from 'next/navigation';
 
 export default async function BookingPage() {
   const session = await auth();
+  console.log(session);
 
   if (!session) {
     redirect('/auth/signin?callbackUrl=/bookings');
