@@ -282,12 +282,14 @@ function MetricCard({ title, value, icon, color, subtitle }) {
 function StatCard({ title, value, total, icon, link }) {
   return (
     <Link href={link}>
-      <div className="bg-white rounded-lg shadow hover:shadow-lg transition p-6 cursor-pointer">
+      <div className="bg-white dark:bg-gray-700 rounded-lg shadow hover:shadow-lg transition p-6 cursor-pointer">
         <div className="flex items-center justify-between mb-2">
-          <p className="text-gray-600 text-sm font-medium">{title}</p>
+          <p className="text-gray-600 dark:text-gray-400 text-sm font-medium">
+            {title}
+          </p>
           <span className="text-2xl">{icon}</span>
         </div>
-        <p className="text-2xl font-bold text-gray-900">
+        <p className="text-2xl font-bold text-gray-900 dark:text-gray-200">
           {value}
           {total > 0 && value !== total && (
             <span className="text-sm text-gray-500 font-normal">
