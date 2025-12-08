@@ -1,8 +1,9 @@
 import { NextResponse } from 'next/server';
 import Stripe from 'stripe';
-import { supabaseAdmin } from '@/lib/supabase';
+import { supabaseAdmin } from '../../../lib/supabase';
 import { Resend } from 'resend';
-import { bookingConfirmationEmail } from '@/lib/emails/booking-confirmation';
+import { bookingConfirmationEmail } from '../../../lib/emails/booking-confirmation';
+import toast from 'react-hot-toast';
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET;
@@ -58,14 +59,14 @@ export async function POST(request) {
         .single();
 
       if (bookingError) {
-        console.error('Error creating booking:', bookingError);
+        toast.error('Error creating booking');
         return NextResponse.json(
           { error: 'Failed to create booking' },
           { status: 500 }
         );
       }
 
-      console.log('✅ Booking created:', booking.id);
+      toast.success('✅ Booking created');
 
       // Get customer info
       const { data: customer } = await supabaseAdmin
@@ -102,16 +103,16 @@ export async function POST(request) {
           html: emailContent.html,
         });
 
-        console.log('✅ Confirmation email sent to:', customer.email);
+        toast.success(`✅ Confirmation email sent to: ${customer.email}`);
       } catch (emailError) {
-        console.error('❌ Error sending email:', emailError);
+        toast.error('❌ Error sending email:');
         // Don't fail the webhook if email fails
       }
     }
 
     return NextResponse.json({ received: true });
   } catch (error) {
-    console.error('Webhook error:', error);
+    toast.error(`Webhook error: ${error}`);
     return NextResponse.json({ error: error.message }, { status: 500 });
   }
 }
