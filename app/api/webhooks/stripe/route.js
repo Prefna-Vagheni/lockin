@@ -3,7 +3,6 @@ import Stripe from 'stripe';
 import { supabaseAdmin } from '../../../lib/supabase';
 import { Resend } from 'resend';
 import { bookingConfirmationEmail } from '../../../lib/emails/booking-confirmation';
-import toast from 'react-hot-toast';
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET;
@@ -59,14 +58,14 @@ export async function POST(request) {
         .single();
 
       if (bookingError) {
-        toast.error('Error creating booking');
+        console.error('Error creating booking');
         return NextResponse.json(
           { error: 'Failed to create booking' },
           { status: 500 }
         );
       }
 
-      toast.success('✅ Booking created');
+      console.log('✅ Booking created');
 
       // Get customer info
       const { data: customer } = await supabaseAdmin
@@ -103,16 +102,16 @@ export async function POST(request) {
           html: emailContent.html,
         });
 
-        toast.success(`✅ Confirmation email sent to: ${customer.email}`);
+        console.log(`✅ Confirmation email sent to: ${customer.email}`);
       } catch (emailError) {
-        toast.error('❌ Error sending email:');
+        console.error('❌ Error sending email:');
         // Don't fail the webhook if email fails
       }
     }
 
     return NextResponse.json({ received: true });
   } catch (error) {
-    toast.error(`Webhook error: ${error}`);
+    console.error(`Webhook error: ${error}`);
     return NextResponse.json({ error: error.message }, { status: 500 });
   }
 }

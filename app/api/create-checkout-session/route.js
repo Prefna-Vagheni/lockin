@@ -1,7 +1,6 @@
 import { NextResponse } from 'next/server';
 import Stripe from 'stripe';
 import { auth } from '../../auth';
-import toast from 'react-hot-toast';
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
@@ -63,7 +62,6 @@ export async function POST(request) {
       url: checkoutSession.url,
     });
   } catch (error) {
-    toast.error('Error creating checkout session');
     return NextResponse.json({ error: error.message }, { status: 500 });
   }
 }
