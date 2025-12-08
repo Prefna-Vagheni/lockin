@@ -1,7 +1,7 @@
-import { auth } from '@/auth';
+import { auth } from '../../../auth';
 import { redirect, notFound } from 'next/navigation';
-import { supabaseAdmin } from '@/lib/supabase';
-import RescheduleForm from '@/_components/RescheduleForm';
+import { supabaseAdmin } from '../../../lib/supabase';
+import RescheduleForm from '../../../_components/RescheduleForm';
 
 export default async function ReschedulePage({ params }) {
   const session = await auth();

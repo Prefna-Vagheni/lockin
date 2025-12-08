@@ -1,8 +1,8 @@
-import { auth } from '@/auth';
+import { auth } from '../../auth';
 import { redirect, notFound } from 'next/navigation';
-import { supabaseAdmin } from '@/lib/supabase';
+import { supabaseAdmin } from '../../lib/supabase';
 import Link from 'next/link';
-import CustomerCancelButton from '@/_components/CustomerCancelButton';
+import CustomerCancelButton from '../../_components/CustomerCancelButton';
 import Image from 'next/image';
 
 export default async function MyBookingDetailsPage({ params }) {
