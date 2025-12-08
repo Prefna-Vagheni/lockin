@@ -267,7 +267,7 @@ function MetricCard({ title, value, icon, color, subtitle }) {
 
   return (
     <div
-      className={`bg-gradient-to-br ${colors[color]} rounded-lg shadow-lg p-6 text-white`}
+      className={`bg-linear-to-br ${colors[color]} rounded-lg shadow-lg p-6 text-white`}
     >
       <div className="flex items-center justify-between mb-2">
         <p className="text-white/80 text-sm font-medium">{title}</p>
@@ -309,17 +309,17 @@ function UpcomingBookingItem({ booking }) {
 
   return (
     <Link href={`/admin/bookings/${booking.id}`}>
-      <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition cursor-pointer">
+      <div className="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-800 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-900 transition cursor-pointer">
         <div className="flex-1">
-          <p className="font-semibold text-gray-900 text-sm">
+          <p className="font-semibold text-gray-900 dark:text-gray-200 text-sm">
             {booking.client?.name}
           </p>
-          <p className="text-xs text-gray-600">
+          <p className="text-xs text-gray-600 dark:text-gray-400">
             {booking.service?.name} • {booking.staff?.users?.name}
           </p>
         </div>
         <div className="text-right">
-          <p className="text-sm font-medium text-gray-900">
+          <p className="text-sm font-medium text-gray-900 dark:text-gray-200">
             {startTime.toLocaleTimeString('en-US', {
               hour: 'numeric',
               minute: '2-digit',
@@ -328,7 +328,9 @@ function UpcomingBookingItem({ booking }) {
           </p>
           <p
             className={`text-xs ${
-              isToday ? 'text-orange-600 font-semibold' : 'text-gray-500'
+              isToday
+                ? 'text-orange-600 dark:text-orange-500 font-semibold'
+                : 'text-gray-500'
             }`}
           >
             {isToday
