@@ -46,6 +46,7 @@ export default function DashboardHeader({ user }) {
                   src={user.image}
                   alt={user.name}
                   fill
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                   className="object-cover rounded-full"
                 />
               </div>
@@ -122,6 +123,7 @@ export default function DashboardHeader({ user }) {
                     className="object-contain rounded-full"
                     src={user.image}
                     fill
+                    sizes="(max-width: 268px) 100vw, (max-width: 400px) 50vw, 33vw"
                     alt={user.name}
                   />
                 </div>

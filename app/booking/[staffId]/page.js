@@ -3,6 +3,7 @@ import { supabaseAdmin } from '../../lib/supabase';
 import { notFound, redirect } from 'next/navigation';
 import BookingForm from '../../_components/BookingForm';
 import Link from 'next/link';
+import Image from 'next/image';
 
 export default async function StaffBookingPage({ params }) {
   const session = await auth();
@@ -66,11 +67,14 @@ export default async function StaffBookingPage({ params }) {
           <div className="flex items-start space-x-6">
             <div className="w-24 h-24 rounded-full overflow-hidden bg-gray-200 dark:bg-gray-600 shrink-0">
               {staff.photo_url ? (
-                <img
-                  src={staff.photo_url}
-                  alt={staff.users?.name}
-                  className="w-full h-full object-cover"
-                />
+                <div className="relative w-full aspect-square">
+                  <Image
+                    src={staff.photo_url}
+                    alt={staff.users?.name}
+                    fill
+                    className=" object-cover"
+                  />
+                </div>
               ) : (
                 <div className="w-full h-full flex items-center justify-center text-gray-400 dark:text-gray-600 text-4xl">
                   👤 {/* HERE I WILL ADD A REAL AVATAR */}

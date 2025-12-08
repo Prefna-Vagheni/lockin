@@ -2,6 +2,7 @@ import { supabaseAdmin } from '../../lib/supabase';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import CancelBookingButton from '../../_components/CancelBookingButton';
+import Image from 'next/image';
 
 export default async function BookingDetailsPage({ params }) {
   const { id } = await params;
@@ -168,11 +169,15 @@ export default async function BookingDetailsPage({ params }) {
             </h2>
             <div className="flex items-center space-x-4">
               {booking.staff?.photo_url ? (
-                <img
-                  src={booking.staff.photo_url}
-                  alt={booking.staff?.users?.name}
-                  className="w-16 h-16 rounded-full object-cover"
-                />
+                <div className="relative w-16 aspect-square">
+                  <Image
+                    src={booking.staff.photo_url}
+                    alt={booking.staff?.users?.name}
+                    className=" rounded-full object-cover"
+                    fill
+                    sizes="(max-width: 468px) 100vw, (max-width: 600px) 50vw, 33vw"
+                  />
+                </div>
               ) : (
                 <div className="w-16 h-16 rounded-full bg-gray-200 flex items-center justify-center text-2xl">
                   👤
