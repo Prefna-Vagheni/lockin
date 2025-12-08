@@ -7,10 +7,9 @@ import { redirect } from 'next/navigation';
 
 export default async function BookingPage() {
   const session = await auth();
-  console.log(session);
 
   if (!session) {
-    redirect('/auth/signin?callbackUrl=/bookings');
+    redirect('/auth/signin?callbackUrl=/bookings'); //or booking(in this url)
   }
 
   // Fetch active staff
