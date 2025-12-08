@@ -73,7 +73,7 @@ export default async function Dashboard() {
                 >
                   <div className="text-4xl mb-3">✂️</div>
                   <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">
-                    Book Appointment
+                    Book New Appointment
                   </h3>
                   <p className="text-gray-600 dark:text-gray-400">
                     Schedule your next salon visit

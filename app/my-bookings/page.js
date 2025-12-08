@@ -1,6 +1,6 @@
-import { auth } from '@/auth';
+import { auth } from '../auth';
 import { redirect } from 'next/navigation';
-import { supabaseAdmin } from '@/lib/supabase';
+import { supabaseAdmin } from '../lib/supabase';
 import Link from 'next/link';
 
 export default async function MyBookingsPage() {
@@ -46,26 +46,29 @@ export default async function MyBookingsPage() {
     ) || [];
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-800">
       {/* Header */}
-      <nav className="bg-white shadow">
+      <nav className="bg-white dark:bg-gray-700 shadow">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between h-16">
             <div className="flex items-center">
-              <Link href="/" className="text-2xl font-bold text-blue-600">
+              <Link
+                href="/"
+                className="text-2xl font-bold text-blue-600 dark:text-blue-500"
+              >
                 LockIn
               </Link>
             </div>
             <div className="flex items-center space-x-4">
               <Link
                 href="/booking"
-                className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
+                className="px-4 py-2 bg-blue-600 dark:bg-blue-500 text-white dark:text-gray-50 rounded hover:bg-blue-700 dark:hover:bg-blue-600"
               >
                 Book New Appointment
               </Link>
               <Link
                 href="/dashboard"
-                className="px-4 py-2 bg-gray-100 text-gray-700 rounded hover:bg-gray-200"
+                className="px-4 py-2 bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-400 rounded hover:bg-gray-200 dark:hover:bg-gray-900"
               >
                 Dashboard
               </Link>
@@ -77,25 +80,27 @@ export default async function MyBookingsPage() {
       {/* Main Content */}
       <main className="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
         <div className="mb-8">
-          <h1 className="text-4xl font-bold text-gray-900 mb-2">
+          <h1 className="text-4xl font-bold text-gray-900 dark:text-gray-200 mb-2">
             My Appointments
           </h1>
-          <p className="text-gray-600">View and manage your salon bookings</p>
+          <p className="text-gray-600 dark:text-gray-400">
+            View and manage your salon bookings
+          </p>
         </div>
 
         {/* No bookings yet */}
         {!bookings || bookings.length === 0 ? (
-          <div className="bg-white rounded-lg shadow p-12 text-center">
+          <div className="bg-white dark:bg-gray-900 rounded-lg shadow p-12 text-center">
             <div className="text-6xl mb-4">📅</div>
-            <h3 className="text-xl font-semibold text-gray-700 mb-2">
+            <h3 className="text-xl font-semibold text-gray-700 dark:text-gray-400 mb-2">
               No appointments yet
             </h3>
-            <p className="text-gray-500 mb-6">
+            <p className="text-gray-500  mb-6">
               Book your first appointment with our talented hairdressers!
             </p>
             <Link
               href="/booking"
-              className="inline-block px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 font-medium"
+              className="inline-block px-6 py-3 bg-blue-600 dark:bg-blue-500 text-white dark:text-gray-900 rounded-lg hover:bg-blue-700 dark:hover:bg-gray-600 font-medium"
             >
               Book Appointment
             </Link>
@@ -105,7 +110,7 @@ export default async function MyBookingsPage() {
             {/* Upcoming Bookings */}
             {upcoming.length > 0 && (
               <section className="mb-12">
-                <h2 className="text-2xl font-bold text-gray-900 mb-6">
+                <h2 className="text-2xl font-bold text-gray-900 dark:text-gray-200 mb-6">
                   Upcoming Appointments ({upcoming.length})
                 </h2>
                 <div className="space-y-4">
@@ -119,7 +124,7 @@ export default async function MyBookingsPage() {
             {/* Past Bookings */}
             {past.length > 0 && (
               <section>
-                <h2 className="text-2xl font-bold text-gray-900 mb-6">
+                <h2 className="text-2xl font-bold text-gray-900 dark:text-gray-200 mb-6">
                   Past Appointments ({past.length})
                 </h2>
                 <div className="space-y-4">
@@ -144,15 +149,15 @@ function BookingCard({ booking, upcoming = false }) {
 
   return (
     <div
-      className={`bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition ${
-        isCancelled ? 'opacity-60' : ''
+      className={`bg-white dark:bg-gray-700 rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition ${
+        isCancelled ? 'opacity-60 dark:opacity-80' : ''
       }`}
     >
       <div className="p-6">
         <div className="flex items-start justify-between mb-4">
           <div className="flex items-center space-x-4">
             {/* Staff Photo */}
-            <div className="w-16 h-16 rounded-full overflow-hidden bg-gray-200 shrink-0">
+            <div className="w-16 h-16 rounded-full overflow-hidden bg-gray-200 dark:bg-gray-800 shrink-0">
               {booking.staff?.photo_url ? (
                 <img
                   src={booking.staff.photo_url}
@@ -168,29 +173,31 @@ function BookingCard({ booking, upcoming = false }) {
 
             {/* Booking Info */}
             <div>
-              <h3 className="text-xl font-bold text-gray-900">
+              <h3 className="text-xl font-bold text-gray-900 dark:text-gray-200">
                 {booking.service?.name}
               </h3>
-              <p className="text-gray-600">with {booking.staff?.users?.name}</p>
+              <p className="text-gray-600 dark:text-gray-400">
+                with {booking.staff?.users?.name}
+              </p>
             </div>
           </div>
 
           {/* Status Badges */}
           <div className="flex flex-col items-end space-y-2">
             {isToday && !isCancelled && (
-              <span className="px-3 py-1 bg-orange-100 text-orange-800 text-xs font-semibold rounded-full">
+              <span className="px-3 py-1 bg-orange-100 dark:bg-orange-800 text-orange-800  dark:text-orange-200 text-xs font-semibold rounded-full">
                 TODAY
               </span>
             )}
             <span
               className={`px-3 py-1 text-xs font-semibold rounded-full ${
                 booking.status === 'confirmed'
-                  ? 'bg-green-100 text-green-800'
+                  ? 'bg-green-100 text-green-800 dark:text-green-100 dark:bg-green-800'
                   : booking.status === 'cancelled'
-                  ? 'bg-red-100 text-red-800'
+                  ? 'bg-red-100 text-red-800 dark:text-red-100 dark:bg-red-800'
                   : booking.status === 'completed'
-                  ? 'bg-blue-100 text-blue-800'
-                  : 'bg-gray-100 text-gray-800'
+                  ? 'bg-blue-100 text-blue-800 dark:text-blue-100 dark:bg-blue-800'
+                  : 'bg-gray-100 text-gray-800 dark:text-gray-100 dark:bg-gray-800'
               }`}
             >
               {booking.status.toUpperCase()}
@@ -213,7 +220,7 @@ function BookingCard({ booking, upcoming = false }) {
           </div>
           <div>
             <p className="text-sm text-gray-500">Time</p>
-            <p className="font-semibold text-gray-900">
+            <p className="font-semibold text-gray-900 dark:text-gray-200">
               {startTime.toLocaleTimeString('en-US', {
                 hour: 'numeric',
                 minute: '2-digit',
@@ -229,7 +236,7 @@ function BookingCard({ booking, upcoming = false }) {
           </div>
           <div>
             <p className="text-sm text-gray-500">Duration</p>
-            <p className="font-semibold text-gray-900">
+            <p className="font-semibold text-gray-900 dark:text-gray-200">
               {booking.service?.duration_minutes} minutes
             </p>
           </div>
@@ -239,7 +246,7 @@ function BookingCard({ booking, upcoming = false }) {
         <div className="flex items-center justify-between pt-4 border-t">
           <div>
             <p className="text-sm text-gray-500">Total Paid</p>
-            <p className="text-2xl font-bold text-green-600">
+            <p className="text-2xl font-bold text-green-600 dark:text-green-400">
               ${booking.total_price}
             </p>
           </div>
@@ -247,7 +254,7 @@ function BookingCard({ booking, upcoming = false }) {
           {upcoming && !isCancelled && (
             <Link
               href={`/my-bookings/${booking.id}`}
-              className="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 font-medium"
+              className="px-6 py-2 bg-blue-600 dark:bg-blue-400 text-white dark:text-gray-800 rounded-lg hover:bg-blue-700 dark:hover:bg-gray-500 font-medium"
             >
               View Details
             </Link>
@@ -256,8 +263,8 @@ function BookingCard({ booking, upcoming = false }) {
 
         {/* Cancellation Notice */}
         {isCancelled && (
-          <div className="mt-4 p-3 bg-red-50 border border-red-200 rounded">
-            <p className="text-sm text-red-800">
+          <div className="mt-4 p-3 bg-red-50 dark:bg-red-800 border border-red-200 dark:border-red-900 rounded">
+            <p className="text-sm text-red-800 dark:text-red-50">
               ❌ This appointment was cancelled
             </p>
           </div>
