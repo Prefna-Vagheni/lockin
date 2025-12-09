@@ -40,8 +40,7 @@ export default function AdminHeader({ user }) {
                 <Image
                   src="/image/lockin.png"
                   alt="Lockin logo"
-                  //   width={32}
-                  //   height={32}
+                  sizes="(max-width: 268px) 100vw, (max-width: 300px) 50vw, 33vw"
                   fill
                   priority
                   className="object-contain"
@@ -66,6 +65,7 @@ export default function AdminHeader({ user }) {
                   src={user.image}
                   alt={user.name}
                   fill
+                  sizes="(max-width: 268px) 100vw, (max-width: 300px) 50vw, 33vw"
                   className="rounded-full object-cover"
                 />
               </div>
