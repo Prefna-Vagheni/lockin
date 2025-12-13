@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import { supabaseAdmin } from '../../lib/supabase';
 import Link from 'next/link';
 
@@ -76,11 +77,15 @@ function StaffCard({ staff }) {
       {/* Photo Area */}
       <div className="aspect-square bg-gray-200 dark:bg-gray-700 relative">
         {staff.photo_url ? (
-          <img
-            src={staff.photo_url}
-            alt={staff.users?.name}
-            className="w-full h-full object-cover"
-          />
+          <div className="relative w-full h-full">
+            <Image
+              src={staff.photo_url}
+              alt={staff.users?.name}
+              fill
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+              className=" object-cover"
+            />
+          </div>
         ) : (
           // Placeholder
           <div className="w-full h-full flex items-center justify-center text-gray-400 dark:text-gray-500 text-6xl">
