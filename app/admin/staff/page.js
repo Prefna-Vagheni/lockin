@@ -92,7 +92,6 @@ function StaffCard({ staff }) {
             👤
           </div>
         )}
-        {/* Inactive Badge */}
         {!staff.is_active && (
           <div className="absolute top-2 right-2 px-2 py-1 bg-red-500 text-white text-xs rounded">
             Inactive
