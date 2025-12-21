@@ -33,14 +33,12 @@ export default async function StaffPage() {
         </Link>
       </div>
 
-      {/* Error Message */}
       {error && (
         <div className="bg-red-50 dark:bg-red-900/30 text-red-600 dark:text-red-300 p-4 rounded mb-4">
           Error loading staff: {error.message}
         </div>
       )}
 
-      {/* Empty State */}
       {!staff || staff.length === 0 ? (
         <div className="bg-white dark:bg-gray-800 rounded-lg shadow dark:shadow-xl p-12 text-center">
           <div className="text-6xl mb-4">👥</div>
