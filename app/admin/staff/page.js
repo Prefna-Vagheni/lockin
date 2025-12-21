@@ -113,13 +113,11 @@ function StaffCard({ staff }) {
           </p>
         )}
 
-        {/* Specialties */}
         {staff.specialties && staff.specialties.length > 0 && (
           <div className="flex flex-wrap gap-1 mb-3">
             {staff.specialties.map((specialty, idx) => (
               <span
                 key={idx}
-                // Specialty Tag Colors
                 className="px-2 py-1 bg-blue-100 dark:bg-blue-900/50 text-blue-800 dark:text-blue-300 text-xs rounded"
               >
                 {specialty}
