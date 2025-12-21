@@ -3,7 +3,6 @@ import { supabaseAdmin } from '../../lib/supabase';
 import Link from 'next/link';
 
 export default async function StaffPage() {
-  // Fetch all staff with their user info
   const { data: staff, error } = await supabaseAdmin
     .from('staff')
     .select(
