@@ -48,7 +48,6 @@ export default async function StaffPage() {
           <p className="text-gray-500 dark:text-gray-400 mb-6">
             Add your first hairdresser to get started!
           </p>
-          {/* Add First Staff Button (Colors already contrast well) */}
           <Link
             href="/admin/staff/new"
             className="inline-block px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 font-medium transition duration-150"
