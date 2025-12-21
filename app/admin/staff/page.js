@@ -126,14 +126,12 @@ function StaffCard({ staff }) {
           </div>
         )}
 
-        {/* Hourly Rate */}
         {staff.hourly_rate && (
           <p className="text-lg font-bold text-green-600 dark:text-green-400 mb-4">
             ${staff.hourly_rate}/hour
           </p>
         )}
 
-        {/* Action Buttons */}
         <div className="space-y-2">
           {/* Edit Details Button (Colors already contrast well) */}
           <Link
