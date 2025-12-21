@@ -100,7 +100,6 @@ function StaffCard({ staff }) {
         )}
       </div>
 
-      {/* Info */}
       <div className="p-4">
         {/* Name */}
         <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-1">
