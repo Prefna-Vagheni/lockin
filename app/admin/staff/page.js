@@ -101,7 +101,6 @@ function StaffCard({ staff }) {
       </div>
 
       <div className="p-4">
-        {/* Name */}
         <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-1">
           {staff.users?.name || 'Unknown'}
         </h3>
