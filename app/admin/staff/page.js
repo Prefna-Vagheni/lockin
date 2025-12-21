@@ -107,7 +107,6 @@ function StaffCard({ staff }) {
           {staff.users?.email}
         </p>
 
-        {/* Bio */}
         {staff.bio && (
           <p className="text-sm text-gray-600 dark:text-gray-300 mb-3 line-clamp-2">
             {staff.bio}
