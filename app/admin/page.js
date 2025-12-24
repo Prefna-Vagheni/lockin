@@ -140,7 +140,6 @@ export default async function AdminDashboard() {
         />
       </div>
 
-      {/* Secondary Stats */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
         <StatCard
           title="Active Staff"
