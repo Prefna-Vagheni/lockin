@@ -41,7 +41,6 @@ export default async function AdminDashboard() {
       0
     ) || 0;
 
-  // Staff count
   const { data: staff } = await supabaseAdmin
     .from('staff')
     .select('*', { count: 'exact' });
