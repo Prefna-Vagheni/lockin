@@ -48,7 +48,6 @@ export default async function AdminDashboard() {
 
   const activeStaff = staff?.filter((s) => s.is_active).length || 0;
 
-  // Services count
   const { data: services } = await supabaseAdmin
     .from('services')
     .select('*', { count: 'exact' });
