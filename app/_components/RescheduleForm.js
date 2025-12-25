@@ -97,7 +97,6 @@ export default function RescheduleForm({
     }
   };
 
-  // Get minimum date (today)
   const minDate = new Date().toISOString().split('T')[0];
 
   // Get maximum date (3 months from now)
