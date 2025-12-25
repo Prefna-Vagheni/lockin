@@ -6,7 +6,6 @@ const shimmer =
 export default function Loading() {
   return (
     <>
-      {/* Shimmer Keyframes */}
       <style>
         {`
           @keyframes shimmer {
