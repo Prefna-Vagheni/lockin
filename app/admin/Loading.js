@@ -130,7 +130,6 @@ export default function Loading() {
           </div>
         </div>
 
-        {/* Quick Actions */}
         <div className="bg-white rounded-lg shadow-lg p-6">
           <div className={`${shimmer} bg-gray-200 h-5 w-40 rounded mb-4`}></div>
           <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
