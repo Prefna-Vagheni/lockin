@@ -25,7 +25,6 @@ export default function Loading() {
           <div className={`${shimmer} bg-gray-200 h-4 w-80 rounded`}></div>
         </div>
 
-        {/* Key Metrics Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
           {[...Array(4)].map((_, i) => (
             <div
