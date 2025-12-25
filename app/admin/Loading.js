@@ -98,7 +98,6 @@ export default function Loading() {
             ))}
           </div>
 
-          {/* Recent */}
           <div className="bg-white rounded-lg shadow-lg p-6">
             <div className="flex items-center justify-between mb-4">
               <div className={`${shimmer} bg-gray-200 h-5 w-40 rounded`}></div>
