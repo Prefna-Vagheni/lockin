@@ -184,7 +184,6 @@ export default function RescheduleForm({
         </div>
       )}
 
-      {/* Buttons */}
       <div className="flex gap-4">
         <button
           type="submit"
