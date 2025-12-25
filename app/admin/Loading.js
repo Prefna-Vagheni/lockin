@@ -67,7 +67,6 @@ export default function Loading() {
 
         {/* Two Column Layout */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
-          {/* Upcoming */}
           <div className="bg-white rounded-lg shadow-lg p-6">
             <div className="flex items-center justify-between mb-4">
               <div className={`${shimmer} bg-gray-200 h-5 w-48 rounded`}></div>
