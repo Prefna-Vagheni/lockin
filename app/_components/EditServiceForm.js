@@ -144,7 +144,6 @@ export default function EditServiceForm({ service }) {
           </label>
         </div>
 
-        {/* Buttons */}
         <div className="flex gap-4">
           <button
             type="submit"
