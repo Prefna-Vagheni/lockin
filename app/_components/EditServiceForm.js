@@ -129,7 +129,6 @@ export default function EditServiceForm({ service }) {
           />
         </div>
 
-        {/* Active Status */}
         <div>
           <label className="flex items-center space-x-3">
             <input
