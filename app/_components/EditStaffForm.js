@@ -4,7 +4,6 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { updateStaff, deleteStaff } from '../actions/staff';
 import toast from 'react-hot-toast';
-// import { updateStaff, deleteStaff } from '@/app/actions/staff';
 
 export default function EditStaffForm({ staff }) {
   const router = useRouter();
