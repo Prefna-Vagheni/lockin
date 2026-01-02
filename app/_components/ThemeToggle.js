@@ -14,7 +14,6 @@ export default function ThemeToggle() {
     requestAnimationFrame(() => setMounted(true)); // I used this way just to avoid the strict mode warning. nothing more.
   }, []);
 
-  // During SSR, render a safe placeholder (not theme dependent)
   if (!mounted) {
     return (
       <button
