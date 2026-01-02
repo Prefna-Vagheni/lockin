@@ -78,7 +78,7 @@ export default function DashboardHeader({ user }) {
         </div>
       </div>
 
-      {/* --- MOBILE MENU OVERLAY (Full Screen & No Scroll)  */}
+      {/* --- MOBILE MENU OVERLAY (Full Screen & No Scrol  */}
       {isMobileMenuOpen && (
         <div className="fixed inset-0 top-16 z-40 bg-white dark:bg-gray-900 md:hidden overflow-y-auto h-[calc(100vh-4rem)]">
           <div className="flex flex-col h-full px-4 pt-8 pb-6 space-y-6">
