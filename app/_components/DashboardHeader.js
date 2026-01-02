@@ -38,8 +38,6 @@ export default function DashboardHeader({ user }) {
           {/* RIGHT: Desktop Menu (Hidden on Mobile) */}
           <div className="hidden md:flex items-center space-x-4">
             <ThemeToggle />
-
-            {/* User Info */}
             <div className="flex items-center space-x-3">
               <div className="w-8 aspect-square relative">
                 <Image
