@@ -163,7 +163,6 @@ export default function EditServiceForm({ service }) {
         </div>
       </form>
 
-      {/* Delete Section */}
       <div className="mt-8 pt-8 border-t border-gray-200">
         <h3 className="text-lg font-semibold text-red-600 mb-2">Danger Zone</h3>
         <p className="text-sm text-gray-600 mb-4">
