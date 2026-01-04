@@ -35,7 +35,6 @@ export default function DashboardHeader({ user }) {
             </Link>
           </div>
 
-          {/* :    */}
           <div className="hidden md:flex items-center space-x-4">
             <ThemeToggle />
             <div className="flex items-center space-x-3">
