@@ -52,7 +52,6 @@ export default function DashboardHeader({ user }) {
               </span>
             </div>
 
-            {/*   () */}
             {user.role === 'admin' && (
               <Link
                 href="/admin"
