@@ -64,7 +64,6 @@ export default function DashboardHeader({ user }) {
             <SignOutButton />
           </div>
 
-          {/* RIGHT: Mobile Hamburger */}
           <div className="flex md:hidden items-center space-x-4">
             <ThemeToggle />
             <button
