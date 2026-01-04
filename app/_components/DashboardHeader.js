@@ -35,7 +35,7 @@ export default function DashboardHeader({ user }) {
             </Link>
           </div>
 
-          {/* RIGHT:   ( on ) */}
+          {/* :   ( on ) */}
           <div className="hidden md:flex items-center space-x-4">
             <ThemeToggle />
             <div className="flex items-center space-x-3">
