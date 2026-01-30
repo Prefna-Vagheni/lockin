@@ -2,7 +2,8 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { rescheduleBooking } from '@/actions/reschedule';
+// import { rescheduleBooking } from '@/actions/reschedule';
+import { rescheduleBooking } from '../actions/reschedule';
 import toast from 'react-hot-toast';
 
 export default function RescheduleForm({
@@ -78,7 +79,7 @@ export default function RescheduleForm({
         bookingId,
         selectedDate,
         selectedTime,
-        serviceDuration
+        serviceDuration,
       );
 
       if (result.success) {
